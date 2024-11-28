@@ -236,7 +236,8 @@ UA_Server *start_registry_module(UA_agent_list *asc){
     UA_StatusCode retval = UA_ServerConfig_setMinimal(config, 8000, NULL);
     UA_LocalizedText_clear(&config->applicationDescription.applicationName);
     config->applicationDescription.applicationName = UA_LOCALIZEDTEXT_ALLOC("en", "SWAP-IT Registry Module");
-
+    config->maxSessions = 10000;
+    config->maxSecureChannels = 10000;
     UA_Server_run_startup(server);
     initRegistryModuleServerStructure(server);
 
