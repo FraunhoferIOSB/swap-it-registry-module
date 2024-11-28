@@ -1,0 +1,10 @@
+/build/*
+/cmake-build-debug/*
+
+docker-compose.yml
+Dockerfile
+.idea
+.vscode
+
+
+coverage.html
