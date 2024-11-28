@@ -1,0 +1,51 @@
+/*
+Licensed under the MIT License.
+For details on the licensing terms, see the LICENSE file.
+SPDX-License-Identifier: MIT
+
+Copyright 2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
+*/
+{
+  //mandatory
+  application_name: "warehouse_dr1",
+  //resource_ip: "service_server",
+  //resource_ip: "host.docker.internal",
+  resource_ip: "localhost",
+  port: "4082",
+  module_type: "WarehouseModuleType",
+  module_name: "WarehouseModule",
+  service_name: "GetPartsFromWarehouse",
+  //optional
+  device_registry:"opc.tcp://localhost:8000",
+  //device_registry:"opc.tcp://device_registry:8000",
+  registry_subscriptions: [
+    {
+      object:"State"
+    },
+    {
+      object:"Capabilities"
+    }
+  ],
+  Capabilities: [
+    {
+      variable_name: "test_numeric",
+      variable_type: "numeric",
+      variable_value: "120",
+      relational_operator: "Greater"
+    },
+    {
+      variable_name: "test_string",
+      variable_type: "string",
+      variable_value: "test",
+      relational_operator: "EqualString"
+    },
+    {
+      variable_name: "test_boolean",
+      variable_type: "bool",
+      variable_value: "false",
+      relational_operator: "IsFalse"
+    }
+  ],
+  channels:"100",
+  sessions:"100"
+}

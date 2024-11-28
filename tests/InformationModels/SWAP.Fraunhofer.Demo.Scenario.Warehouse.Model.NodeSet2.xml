@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" LastModified="2024-01-01T00:00:00Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://swap.demo.scenario.warehouse.fraunhofer.de</Uri>
+    <Uri>http://common.swap.fraunhofer.de</Uri>
+    <Uri>http://swap.demo.scenario.fraunhofer.de</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://swap.demo.scenario.warehouse.fraunhofer.de" Version="1.00.0" PublicationDate="2024-01-01T00:00:00Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.03.00" PublicationDate="2013-12-02T00:00:00Z" />
+      <RequiredModel ModelUri="http://swap.demo.scenario.fraunhofer.de" Version="1.00.0" PublicationDate="2024-01-01T00:00:00Z" />
+      <RequiredModel ModelUri="http://common.swap.fraunhofer.de" Version="1.00.0" PublicationDate="2024-01-01T00:00:00Z" />
+    </Model>
+  </Models>
+  <Aliases>
+    <Alias Alias="Boolean">i=1</Alias>
+    <Alias Alias="SByte">i=2</Alias>
+    <Alias Alias="Byte">i=3</Alias>
+    <Alias Alias="Int16">i=4</Alias>
+    <Alias Alias="UInt16">i=5</Alias>
+    <Alias Alias="Int32">i=6</Alias>
+    <Alias Alias="UInt32">i=7</Alias>
+    <Alias Alias="Int64">i=8</Alias>
+    <Alias Alias="UInt64">i=9</Alias>
+    <Alias Alias="Float">i=10</Alias>
+    <Alias Alias="Double">i=11</Alias>
+    <Alias Alias="DateTime">i=13</Alias>
+    <Alias Alias="String">i=12</Alias>
+    <Alias Alias="ByteString">i=15</Alias>
+    <Alias Alias="Guid">i=14</Alias>
+    <Alias Alias="XmlElement">i=16</Alias>
+    <Alias Alias="NodeId">i=17</Alias>
+    <Alias Alias="ExpandedNodeId">i=18</Alias>
+    <Alias Alias="QualifiedName">i=20</Alias>
+    <Alias Alias="LocalizedText">i=21</Alias>
+    <Alias Alias="StatusCode">i=19</Alias>
+    <Alias Alias="Structure">i=22</Alias>
+    <Alias Alias="Number">i=26</Alias>
+    <Alias Alias="Integer">i=27</Alias>
+    <Alias Alias="UInteger">i=28</Alias>
+    <Alias Alias="HasComponent">i=47</Alias>
+    <Alias Alias="HasProperty">i=46</Alias>
+    <Alias Alias="Organizes">i=35</Alias>
+    <Alias Alias="HasEventSource">i=36</Alias>
+    <Alias Alias="HasNotifier">i=48</Alias>
+    <Alias Alias="HasSubtype">i=45</Alias>
+    <Alias Alias="HasTypeDefinition">i=40</Alias>
+    <Alias Alias="HasModellingRule">i=37</Alias>
+    <Alias Alias="HasEncoding">i=38</Alias>
+    <Alias Alias="HasDescription">i=39</Alias>
+  </Aliases>
+  <UAObjectType NodeId="ns=1;i=15001" BrowseName="1:GetPartsFromWarehouse">
+    <DisplayName>GetPartsFromWarehouse</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15014</Reference>
+      <Reference ReferenceType="HasProperty">ns=1;i=15015</Reference>
+      <Reference ReferenceType="HasSubtype" IsForward="false">ns=2;i=15054</Reference>
+    </References>
+  </UAObjectType>
+  <UAVariable NodeId="ns=1;i=15014" BrowseName="1:order" ParentNodeId="ns=1;i=15001" DataType="ns=3;i=15005">
+    <DisplayName>order</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15001</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15015" BrowseName="1:blanks" ParentNodeId="ns=1;i=15001" DataType="ns=3;i=15004">
+    <DisplayName>blanks</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15001</Reference>
+    </References>
+  </UAVariable>
+  <UAObjectType NodeId="ns=1;i=15016" BrowseName="1:ServiceObjectType">
+    <DisplayName>ServiceObjectType</DisplayName>
+    <References>
+      <Reference ReferenceType="HasComponent">ns=1;i=15022</Reference>
+      <Reference ReferenceType="HasSubtype" IsForward="false">ns=2;i=15073</Reference>
+    </References>
+  </UAObjectType>
+  <UAMethod NodeId="ns=1;i=15022" BrowseName="2:GetPartsFromWarehouse" ParentNodeId="ns=1;i=15016">
+    <DisplayName>GetPartsFromWarehouse</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15058</Reference>
+      <Reference ReferenceType="HasProperty">ns=1;i=15023</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15016</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15058" BrowseName="InputArguments" ParentNodeId="ns=1;i=15022" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15022</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>material</Name>
+              <DataType>
+                <Identifier>ns=3;i=15004</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>segments</Name>
+              <DataType>
+                <Identifier>ns=3;i=15002</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>order</Name>
+              <DataType>
+                <Identifier>ns=3;i=15005</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15023" BrowseName="OutputArguments" ParentNodeId="ns=1;i=15022" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>OutputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15022</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Results</Name>
+              <DataType>
+                <Identifier>ns=2;i=15052</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAObjectType NodeId="ns=1;i=15024" BrowseName="1:WarehouseModuleType">
+    <DisplayName>WarehouseModuleType</DisplayName>
+    <References>
+      <Reference ReferenceType="HasComponent">ns=1;i=15045</Reference>
+      <Reference ReferenceType="HasSubtype" IsForward="false">ns=2;i=15079</Reference>
+    </References>
+  </UAObjectType>
+  <UAObject NodeId="ns=1;i=15045" BrowseName="2:Services" ParentNodeId="ns=1;i=15024">
+    <DisplayName>Services</DisplayName>
+    <References>
+      <Reference ReferenceType="HasComponent">ns=1;i=15046</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15048</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15050</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15054</Reference>
+      <Reference ReferenceType="HasTypeDefinition">ns=1;i=15016</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15024</Reference>
+    </References>
+  </UAObject>
+  <UAMethod NodeId="ns=1;i=15046" BrowseName="2:register" ParentNodeId="ns=1;i=15045" MethodDeclarationId="ns=2;i=15074">
+    <DisplayName>register</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15047</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15045</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15047" BrowseName="InputArguments" ParentNodeId="ns=1;i=15046" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15046</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Registry URL</Name>
+              <DataType>
+                <Identifier>i=12</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Resource URL</Name>
+              <DataType>
+                <Identifier>i=12</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15048" BrowseName="2:unregister" ParentNodeId="ns=1;i=15045" MethodDeclarationId="ns=2;i=15076">
+    <DisplayName>unregister</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15049</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15045</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15049" BrowseName="InputArguments" ParentNodeId="ns=1;i=15048" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15048</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Registry URL</Name>
+              <DataType>
+                <Identifier>i=12</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Resource URL</Name>
+              <DataType>
+                <Identifier>i=12</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15050" BrowseName="2:registered" ParentNodeId="ns=1;i=15045" DataType="Boolean" AccessLevel="3">
+    <DisplayName>registered</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15045</Reference>
+    </References>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15054" BrowseName="2:GetPartsFromWarehouse" ParentNodeId="ns=1;i=15045" MethodDeclarationId="ns=1;i=15022">
+    <DisplayName>GetPartsFromWarehouse</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15059</Reference>
+      <Reference ReferenceType="HasProperty">ns=1;i=15055</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15045</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15059" BrowseName="InputArguments" ParentNodeId="ns=1;i=15054" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15054</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>material</Name>
+              <DataType>
+                <Identifier>ns=3;i=15004</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>segments</Name>
+              <DataType>
+                <Identifier>ns=3;i=15002</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>order</Name>
+              <DataType>
+                <Identifier>ns=3;i=15005</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15055" BrowseName="OutputArguments" ParentNodeId="ns=1;i=15054" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>OutputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15054</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>Results</Name>
+              <DataType>
+                <Identifier>ns=2;i=15052</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+</UANodeSet>

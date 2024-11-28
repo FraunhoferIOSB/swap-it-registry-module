@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensed under the MIT License.
+For details on the licensing terms, see the LICENSE file.
+SPDX-License-Identifier: MIT
+
+Copyright 2023-2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
+-->
+
+<ModelDesign
+        xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ua="http://opcfoundation.org/UA/"
+        xmlns:cmn="http://common.swap.fraunhofer.de"
+        xmlns:pt="http://swap.demo.scenario.fraunhofer.de"
+        xmlns:wh="http://swap.demo.scenario.warehouse.fraunhofer.de"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        TargetNamespace="http://swap.demo.scenario.warehouse.fraunhofer.de"
+        TargetXmlNamespace="http://swap.demo.scenario.warehouse.fraunhofer.de"
+        TargetVersion="1.00.0"
+        TargetPublicationDate="2024-01-01T00:00:00Z"
+        xmlns="http://opcfoundation.org/UA/ModelDesign.xsd">
+
+    <!-- set dependencies to other namespaces. Besides the Namespace Zero, we have to add the common namespace and the PFDL types namespace-->
+    <Namespaces>
+        <Namespace Name="Warehouse" Prefix="SWAP.Fraunhofer.Demo.Scenario.Warehouse.Model" XmlNamespace="http://swap.demo.scenario.warehouse.fraunhofer.de/Types.xsd" XmlPrefix="wh">http://swap.demo.scenario.warehouse.fraunhofer.de</Namespace>
+        <!-- set dependency to the pfdl types namespace -->
+        <Namespace Name="Demo" Prefix="SWAP.Fraunhofer.Demo.Scenario.Model" XmlNamespace="http://swap.demo.scenario.fraunhofer.de/Types.xsd" XmlPrefix="pt" FilePath="DemoScenarioTypes.ModelDesign">http://swap.demo.scenario.fraunhofer.de</Namespace>
+        <!-- set dependency to the common namespace -->
+        <Namespace Name="Common" Prefix="SWAP.Fraunhofer.Common.Model" XmlNamespace="http://common.swap.fraunhofer.de/Types.xsd" XmlPrefix="cmn" FilePath="CommonModelDesign">http://common.swap.fraunhofer.de</Namespace>
+        <Namespace Name="OpcUa" Prefix="Opc.Ua" Version="1.03.00" PublicationDate="2013-12-02T00:00:00Z" InternalPrefix="Opc.Ua.Server" XmlNamespace="http://opcfoundation.org/UA/2008/02/Types.xsd" XmlPrefix="ua">http://opcfoundation.org/UA/</Namespace>
+    </Namespaces>
+
+    <!-- define custom data types -->
+    <!--definition of the GetPartsFromWarehouse event, which is a subtype of the ServiceFinishedEventType define in the common model-->
+    <ObjectType SymbolicName="wh:GetPartsFromWarehouse" BaseType="cmn:ServiceFinishedEventType">
+        <Children>
+            <Property SymbolicName="wh:order" DataType="pt:SWAP_Order" ModellingRule="Mandatory" />
+            <Property SymbolicName="wh:blanks" DataType="pt:Raw_Material" ModellingRule="Mandatory" />
+        </Children>
+    </ObjectType>
+
+    <!-- add the GetPartsFromWarehous method to the ServiceObject -->
+    <ObjectType SymbolicName="wh:ServiceObjectType" BaseType="cmn:ServiceObjectType">
+        <Children>
+            <Method SymbolicName="cmn:GetPartsFromWarehouse" TypeDefinition="cmn:GetPartsFromWarehouseMethodType"/>
+        </Children>
+    </ObjectType>
+
+    <!-- create a WarehouseModuleType as subtype of the ModuleType define in the common namespace -->
+    <ObjectType SymbolicName="wh:WarehouseModuleType" BaseType="cmn:ModuleType">
+        <Children>
+            <Object SymbolicName="cmn:Services" TypeDefinition="wh:ServiceObjectType"/>
+        </Children>
+    </ObjectType>
+
+    <!-- define custom methods -->
+    <!-- define the GetPartsFromWarehouse method that has the output argument Results with the data type  ServiceExecutionAsyncResultDataType-->
+    <Method SymbolicName="cmn:GetPartsFromWarehouseMethodType">
+        <InputArguments>
+            <Argument Name="material" DataType="pt:Raw_Material" ModellingRule="Mandatory"/>
+            <Argument Name="segments" DataType="pt:Light_Segment" ModellingRule="Mandatory"/>
+            <Argument Name="order" DataType="pt:SWAP_Order" ModellingRule="Mandatory"/>
+        </InputArguments>
+        <OutputArguments>
+            <Argument Name="Results" DataType="cmn:ServiceExecutionAsyncResultDataType" ModellingRule="Mandatory"/>
+        </OutputArguments>
+    </Method>
+
+
+</ModelDesign>

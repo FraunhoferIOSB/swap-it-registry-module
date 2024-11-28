@@ -1,0 +1,15 @@
+<opc:TypeDictionary
+  xmlns:pt="http://swap.demo.scenario.fraunhofer.de"
+  xmlns:cmn="http://common.swap.fraunhofer.de"
+  xmlns:opc="http://opcfoundation.org/BinarySchema/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ua="http://opcfoundation.org/UA/"
+  xmlns:tns="http://swap.demo.scenario.warehouse.fraunhofer.de"
+  DefaultByteOrder="LittleEndian"
+  TargetNamespace="http://swap.demo.scenario.warehouse.fraunhofer.de"
+>
+  <opc:Import Namespace="http://swap.demo.scenario.fraunhofer.de" Location="SWAP.Fraunhofer.Demo.Scenario.Model.BinarySchema.bsd"/>
+  <opc:Import Namespace="http://common.swap.fraunhofer.de" Location="SWAP.Fraunhofer.Common.Model.BinarySchema.bsd"/>
+  <opc:Import Namespace="http://opcfoundation.org/UA/" Location="Opc.Ua.BinarySchema.bsd"/>
+
+</opc:TypeDictionary>

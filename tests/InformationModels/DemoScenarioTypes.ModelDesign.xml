@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensed under the MIT License.
+For details on the licensing terms, see the LICENSE file.
+SPDX-License-Identifier: MIT
+
+Copyright 2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
+-->
+
+<ModelDesign
+        xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ua="http://opcfoundation.org/UA/"
+        xmlns:pt="http://swap.demo.scenario.fraunhofer.de"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        TargetNamespace="http://swap.demo.scenario.fraunhofer.de"
+        TargetXmlNamespace="http://swap.demo.scenario.fraunhofer.de"
+        TargetVersion="1.00.0"
+        TargetPublicationDate="2024-01-01T00:00:00Z"
+        xmlns="http://opcfoundation.org/UA/ModelDesign.xsd">
+
+    <!-- set dependencies to other namespaces. In this case only Namespace Zero that provides build-in OPC UA Types is required-->
+    <Namespaces>
+        <Namespace Name="Demo" Prefix="SWAP.Fraunhofer.Demo.Scenario.Model" XmlNamespace="http://swap.demo.scenario.fraunhofer.de/Types.xsd" XmlPrefix="pt">http://swap.demo.scenario.fraunhofer.de</Namespace>
+        <Namespace Name="OpcUa" Prefix="Opc.Ua" Version="1.03.00" PublicationDate="2013-12-02T00:00:00Z" InternalPrefix="Opc.Ua.Server" XmlNamespace="http://opcfoundation.org/UA/2008/02/Types.xsd" XmlPrefix="ua">http://opcfoundation.org/UA/</Namespace>
+    </Namespaces>
+
+    <!-- custom data types that correspond to the structures defined within the PFDL -->
+    <DataType SymbolicName="pt:Stand_Segment" BaseType="ua:Structure">
+        <Fields>
+            <Field Name="stand_shape" DataType="ua:String"/>
+            <Field Name="stand_height" DataType="ua:Double"/>
+            <Field Name="stand_id" DataType="ua:String"/>
+        </Fields>
+    </DataType>
+
+    <DataType SymbolicName="pt:Light_Segment" BaseType="ua:Structure" ValueRank="Any">
+        <Fields>
+            <Field Name="color" DataType="ua:String"/>
+            <Field Name="diameter" DataType="ua:Double"/>
+            <Field Name="segment_id" DataType="ua:String"/>
+        </Fields>
+    </DataType>
+
+    <DataType SymbolicName="pt:Blank" BaseType="ua:Structure">
+        <Fields>
+            <Field Name="blank_type" DataType="ua:String"/>
+            <Field Name="blank_id" DataType="ua:String"/>
+            <Field Name="part_id" DataType="ua:Double"/>
+        </Fields>
+    </DataType>
+
+    <DataType SymbolicName="pt:Raw_Material" BaseType="ua:Structure">
+        <Fields>
+            <Field Name="blank_type" ValueRank="Array" DataType="pt:Blank"/>
+            <Field Name="blank_number" DataType="ua:Double"/>
+        </Fields>
+    </DataType>
+
+    <!-- define the SWAP_Order data type -->
+    <DataType SymbolicName="pt:SWAP_Order" BaseType="ua:Structure">
+        <Fields>
+            <Field Name="order_id" DataType="ua:Double"/>
+            <Field Name="stand" DataType="pt:Stand_Segment"/>
+            <Field Name="segments" DataType="pt:Light_Segment" ValueRank="Array"/>
+            <Field Name="number_light_segments" DataType="ua:Double"/>
+        </Fields>
+    </DataType>
+
+</ModelDesign>

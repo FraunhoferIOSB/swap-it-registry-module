@@ -1,0 +1,37 @@
+/*
+ * Licensed under the MIT License.
+ * For details on the licensing terms, see the LICENSE file.
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright 2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
+ *
+ */
+{
+  aggregates: [
+    {
+      //"service_name": "test",
+      //"address": "localhost",
+      //"port": "1234",
+      moduleType: "TestType",
+      mapping: [
+        {
+          entryNode: "Capabilities",
+          synchronization: "subscription"
+        },
+        {
+          entryNode: "State",
+          synchronization: "subscription"
+        },
+        {
+          entryNode: "Queue/ServiceQueue",
+          synchronization: "subscription"
+        }
+      ]
+    }
+  ],
+  defaults: {
+    subscription_interval: 500,
+    unsecure: "allowed",
+    timeout: 2000
+  }
+}

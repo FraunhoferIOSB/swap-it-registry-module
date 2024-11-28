@@ -1,0 +1,43 @@
+<opc:TypeDictionary
+  xmlns:opc="http://opcfoundation.org/BinarySchema/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ua="http://opcfoundation.org/UA/"
+  xmlns:tns="http://swap.demo.scenario.fraunhofer.de"
+  DefaultByteOrder="LittleEndian"
+  TargetNamespace="http://swap.demo.scenario.fraunhofer.de"
+>
+  <opc:Import Namespace="http://opcfoundation.org/UA/" Location="Opc.Ua.BinarySchema.bsd"/>
+
+  <opc:StructuredType Name="Stand_Segment" BaseType="ua:ExtensionObject">
+    <opc:Field Name="stand_shape" TypeName="opc:String" />
+    <opc:Field Name="stand_height" TypeName="opc:Double" />
+    <opc:Field Name="stand_id" TypeName="opc:String" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="Light_Segment" BaseType="ua:ExtensionObject">
+    <opc:Field Name="color" TypeName="opc:String" />
+    <opc:Field Name="diameter" TypeName="opc:Double" />
+    <opc:Field Name="segment_id" TypeName="opc:String" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="Blank" BaseType="ua:ExtensionObject">
+    <opc:Field Name="blank_type" TypeName="opc:String" />
+    <opc:Field Name="blank_id" TypeName="opc:String" />
+    <opc:Field Name="part_id" TypeName="opc:Double" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="Raw_Material" BaseType="ua:ExtensionObject">
+    <opc:Field Name="NoOfblank_type" TypeName="opc:Int32" />
+    <opc:Field Name="blank_type" TypeName="tns:Blank" LengthField="NoOfblank_type" />
+    <opc:Field Name="blank_number" TypeName="opc:Double" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="SWAP_Order" BaseType="ua:ExtensionObject">
+    <opc:Field Name="order_id" TypeName="opc:Double" />
+    <opc:Field Name="stand" TypeName="tns:Stand_Segment" />
+    <opc:Field Name="NoOfsegments" TypeName="opc:Int32" />
+    <opc:Field Name="segments" TypeName="tns:Light_Segment" LengthField="NoOfsegments" />
+    <opc:Field Name="number_light_segments" TypeName="opc:Double" />
+  </opc:StructuredType>
+
+</opc:TypeDictionary>

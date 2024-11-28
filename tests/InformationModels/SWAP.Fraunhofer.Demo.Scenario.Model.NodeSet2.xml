@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" LastModified="2024-01-01T00:00:00Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://swap.demo.scenario.fraunhofer.de</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://swap.demo.scenario.fraunhofer.de" Version="1.00.0" PublicationDate="2024-01-01T00:00:00Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/" Version="1.03.00" PublicationDate="2013-12-02T00:00:00Z" />
+    </Model>
+  </Models>
+  <Aliases>
+    <Alias Alias="Boolean">i=1</Alias>
+    <Alias Alias="SByte">i=2</Alias>
+    <Alias Alias="Byte">i=3</Alias>
+    <Alias Alias="Int16">i=4</Alias>
+    <Alias Alias="UInt16">i=5</Alias>
+    <Alias Alias="Int32">i=6</Alias>
+    <Alias Alias="UInt32">i=7</Alias>
+    <Alias Alias="Int64">i=8</Alias>
+    <Alias Alias="UInt64">i=9</Alias>
+    <Alias Alias="Float">i=10</Alias>
+    <Alias Alias="Double">i=11</Alias>
+    <Alias Alias="DateTime">i=13</Alias>
+    <Alias Alias="String">i=12</Alias>
+    <Alias Alias="ByteString">i=15</Alias>
+    <Alias Alias="Guid">i=14</Alias>
+    <Alias Alias="XmlElement">i=16</Alias>
+    <Alias Alias="NodeId">i=17</Alias>
+    <Alias Alias="ExpandedNodeId">i=18</Alias>
+    <Alias Alias="QualifiedName">i=20</Alias>
+    <Alias Alias="LocalizedText">i=21</Alias>
+    <Alias Alias="StatusCode">i=19</Alias>
+    <Alias Alias="Structure">i=22</Alias>
+    <Alias Alias="Number">i=26</Alias>
+    <Alias Alias="Integer">i=27</Alias>
+    <Alias Alias="UInteger">i=28</Alias>
+    <Alias Alias="HasComponent">i=47</Alias>
+    <Alias Alias="HasProperty">i=46</Alias>
+    <Alias Alias="Organizes">i=35</Alias>
+    <Alias Alias="HasEventSource">i=36</Alias>
+    <Alias Alias="HasNotifier">i=48</Alias>
+    <Alias Alias="HasSubtype">i=45</Alias>
+    <Alias Alias="HasTypeDefinition">i=40</Alias>
+    <Alias Alias="HasModellingRule">i=37</Alias>
+    <Alias Alias="HasEncoding">i=38</Alias>
+    <Alias Alias="HasDescription">i=39</Alias>
+  </Aliases>
+  <UADataType NodeId="ns=1;i=15001" BrowseName="1:Stand_Segment">
+    <DisplayName>Stand_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Stand_Segment">
+      <Field Name="stand_shape" DataType="i=12" />
+      <Field Name="stand_height" DataType="i=11" />
+      <Field Name="stand_id" DataType="i=12" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15002" BrowseName="1:Light_Segment">
+    <DisplayName>Light_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Light_Segment">
+      <Field Name="color" DataType="i=12" />
+      <Field Name="diameter" DataType="i=11" />
+      <Field Name="segment_id" DataType="i=12" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15003" BrowseName="1:Blank">
+    <DisplayName>Blank</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Blank">
+      <Field Name="blank_type" DataType="i=12" />
+      <Field Name="blank_id" DataType="i=12" />
+      <Field Name="part_id" DataType="i=11" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15004" BrowseName="1:Raw_Material">
+    <DisplayName>Raw_Material</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Raw_Material">
+      <Field Name="blank_type" DataType="ns=1;i=15003" ValueRank="1" />
+      <Field Name="blank_number" DataType="i=11" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15005" BrowseName="1:SWAP_Order">
+    <DisplayName>SWAP_Order</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:SWAP_Order">
+      <Field Name="order_id" DataType="i=11" />
+      <Field Name="stand" DataType="ns=1;i=15001" />
+      <Field Name="segments" DataType="ns=1;i=15002" ValueRank="1" />
+      <Field Name="number_light_segments" DataType="i=11" />
+    </Definition>
+  </UADataType>
+  <UAObject NodeId="ns=1;i=15006" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15001</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15015</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15007" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15002</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15018</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15008" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15003</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15021</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15009" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15004</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15024</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15010" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15005</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15027</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=15011" BrowseName="1:SWAP.Fraunhofer.Demo.Scenario.Model" SymbolicName="Demo_BinarySchema" DataType="ByteString">
+    <DisplayName>SWAP.Fraunhofer.Demo.Scenario.Model</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15013</Reference>
+      <Reference ReferenceType="HasProperty">ns=1;i=15014</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15015</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15018</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15021</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15024</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15027</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">i=93</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=72</Reference>
+    </References>
+    <Value>
+      <ByteString xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PG9wYzpUeXBlRGljdGlvbmFyeQ0KICB4bWxuczpvcGM9Imh0dHA6Ly9vcGNmb3VuZGF0aW9uLm9y
+Zy9CaW5hcnlTY2hlbWEvIg0KICB4bWxuczp4c2k9Imh0dHA6Ly93d3cudzMub3JnLzIwMDEvWE1M
+U2NoZW1hLWluc3RhbmNlIg0KICB4bWxuczp1YT0iaHR0cDovL29wY2ZvdW5kYXRpb24ub3JnL1VB
+LyINCiAgeG1sbnM6dG5zPSJodHRwOi8vc3dhcC5kZW1vLnNjZW5hcmlvLmZyYXVuaG9mZXIuZGUi
+DQogIERlZmF1bHRCeXRlT3JkZXI9IkxpdHRsZUVuZGlhbiINCiAgVGFyZ2V0TmFtZXNwYWNlPSJo
+dHRwOi8vc3dhcC5kZW1vLnNjZW5hcmlvLmZyYXVuaG9mZXIuZGUiDQo+DQogIDxvcGM6SW1wb3J0
+IE5hbWVzcGFjZT0iaHR0cDovL29wY2ZvdW5kYXRpb24ub3JnL1VBLyIgTG9jYXRpb249Ik9wYy5V
+YS5CaW5hcnlTY2hlbWEuYnNkIi8+DQoNCiAgPG9wYzpTdHJ1Y3R1cmVkVHlwZSBOYW1lPSJTdGFu
+ZF9TZWdtZW50IiBCYXNlVHlwZT0idWE6RXh0ZW5zaW9uT2JqZWN0Ij4NCiAgICA8b3BjOkZpZWxk
+IE5hbWU9InN0YW5kX3NoYXBlIiBUeXBlTmFtZT0ib3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZp
+ZWxkIE5hbWU9InN0YW5kX2hlaWdodCIgVHlwZU5hbWU9Im9wYzpEb3VibGUiIC8+DQogICAgPG9w
+YzpGaWVsZCBOYW1lPSJzdGFuZF9pZCIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogIDwvb3Bj
+OlN0cnVjdHVyZWRUeXBlPg0KDQogIDxvcGM6U3RydWN0dXJlZFR5cGUgTmFtZT0iTGlnaHRfU2Vn
+bWVudCIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpGaWVsZCBOYW1l
+PSJjb2xvciIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJk
+aWFtZXRlciIgVHlwZU5hbWU9Im9wYzpEb3VibGUiIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJz
+ZWdtZW50X2lkIiBUeXBlTmFtZT0ib3BjOlN0cmluZyIgLz4NCiAgPC9vcGM6U3RydWN0dXJlZFR5
+cGU+DQoNCiAgPG9wYzpTdHJ1Y3R1cmVkVHlwZSBOYW1lPSJCbGFuayIgQmFzZVR5cGU9InVhOkV4
+dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJibGFua190eXBlIiBUeXBlTmFt
+ZT0ib3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9ImJsYW5rX2lkIiBUeXBlTmFt
+ZT0ib3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9InBhcnRfaWQiIFR5cGVOYW1l
+PSJvcGM6RG91YmxlIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlwZT4NCg0KICA8b3BjOlN0cnVj
+dHVyZWRUeXBlIE5hbWU9IlJhd19NYXRlcmlhbCIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVj
+dCI+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJOb09mYmxhbmtfdHlwZSIgVHlwZU5hbWU9Im9wYzpJ
+bnQzMiIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9ImJsYW5rX3R5cGUiIFR5cGVOYW1lPSJ0bnM6
+QmxhbmsiIExlbmd0aEZpZWxkPSJOb09mYmxhbmtfdHlwZSIgLz4NCiAgICA8b3BjOkZpZWxkIE5h
+bWU9ImJsYW5rX251bWJlciIgVHlwZU5hbWU9Im9wYzpEb3VibGUiIC8+DQogIDwvb3BjOlN0cnVj
+dHVyZWRUeXBlPg0KDQogIDxvcGM6U3RydWN0dXJlZFR5cGUgTmFtZT0iU1dBUF9PcmRlciIgQmFz
+ZVR5cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJvcmRlcl9p
+ZCIgVHlwZU5hbWU9Im9wYzpEb3VibGUiIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJzdGFuZCIg
+VHlwZU5hbWU9InRuczpTdGFuZF9TZWdtZW50IiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iTm9P
+ZnNlZ21lbnRzIiBUeXBlTmFtZT0ib3BjOkludDMyIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0i
+c2VnbWVudHMiIFR5cGVOYW1lPSJ0bnM6TGlnaHRfU2VnbWVudCIgTGVuZ3RoRmllbGQ9Ik5vT2Zz
+ZWdtZW50cyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9Im51bWJlcl9saWdodF9zZWdtZW50cyIg
+VHlwZU5hbWU9Im9wYzpEb3VibGUiIC8+DQogIDwvb3BjOlN0cnVjdHVyZWRUeXBlPg0KDQo8L29w
+YzpUeXBlRGljdGlvbmFyeT4=</ByteString>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15013" BrowseName="NamespaceUri" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>NamespaceUri</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">http://swap.demo.scenario.fraunhofer.de</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15014" BrowseName="Deprecated" ParentNodeId="ns=1;i=15011" DataType="Boolean">
+    <DisplayName>Deprecated</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <Boolean xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">true</Boolean>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15015" BrowseName="1:Stand_Segment" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>Stand_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Stand_Segment</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15018" BrowseName="1:Light_Segment" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>Light_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Light_Segment</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15021" BrowseName="1:Blank" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>Blank</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Blank</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15024" BrowseName="1:Raw_Material" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>Raw_Material</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Raw_Material</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15027" BrowseName="1:SWAP_Order" ParentNodeId="ns=1;i=15011" DataType="String">
+    <DisplayName>SWAP_Order</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15011</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SWAP_Order</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=15030" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15001</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15039</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15031" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15002</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15042</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15032" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15003</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15045</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15033" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15004</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15048</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15034" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15005</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15051</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=15035" BrowseName="1:SWAP.Fraunhofer.Demo.Scenario.Model" SymbolicName="Demo_XmlSchema" DataType="ByteString">
+    <DisplayName>SWAP.Fraunhofer.Demo.Scenario.Model</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15037</Reference>
+      <Reference ReferenceType="HasProperty">ns=1;i=15038</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15039</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15042</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15045</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15048</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15051</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">i=92</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=72</Reference>
+    </References>
+    <Value>
+      <ByteString xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PHhzOnNjaGVtYQ0KICB4bWxuczp4cz0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEi
+DQogIHhtbG5zOnVhPSJodHRwOi8vb3BjZm91bmRhdGlvbi5vcmcvVUEvMjAwOC8wMi9UeXBlcy54
+c2QiDQogIHhtbG5zOnRucz0iaHR0cDovL3N3YXAuZGVtby5zY2VuYXJpby5mcmF1bmhvZmVyLmRl
+L1R5cGVzLnhzZCINCiAgdGFyZ2V0TmFtZXNwYWNlPSJodHRwOi8vc3dhcC5kZW1vLnNjZW5hcmlv
+LmZyYXVuaG9mZXIuZGUvVHlwZXMueHNkIg0KICBlbGVtZW50Rm9ybURlZmF1bHQ9InF1YWxpZmll
+ZCINCj4NCiAgPHhzOmltcG9ydCBuYW1lc3BhY2U9Imh0dHA6Ly9vcGNmb3VuZGF0aW9uLm9yZy9V
+QS8yMDA4LzAyL1R5cGVzLnhzZCIgLz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iU3RhbmRf
+U2VnbWVudCI+DQogICAgPHhzOnNlcXVlbmNlPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic3Rh
+bmRfc2hhcGUiIHR5cGU9InhzOnN0cmluZyIgbWluT2NjdXJzPSIwIiBuaWxsYWJsZT0idHJ1ZSIg
+Lz4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9InN0YW5kX2hlaWdodCIgdHlwZT0ieHM6ZG91Ymxl
+IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzdGFuZF9pZCIgdHlw
+ZT0ieHM6c3RyaW5nIiBtaW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6
+c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlN0YW5k
+X1NlZ21lbnQiIHR5cGU9InRuczpTdGFuZF9TZWdtZW50IiAvPg0KDQogIDx4czpjb21wbGV4VHlw
+ZSBuYW1lPSJMaXN0T2ZTdGFuZF9TZWdtZW50Ij4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAgICA8
+eHM6ZWxlbWVudCBuYW1lPSJTdGFuZF9TZWdtZW50IiB0eXBlPSJ0bnM6U3RhbmRfU2VnbWVudCIg
+bWluT2NjdXJzPSIwIiBtYXhPY2N1cnM9InVuYm91bmRlZCIgbmlsbGFibGU9InRydWUiIC8+DQog
+ICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQgbmFt
+ZT0iTGlzdE9mU3RhbmRfU2VnbWVudCIgdHlwZT0idG5zOkxpc3RPZlN0YW5kX1NlZ21lbnQiIG5p
+bGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+DQoNCiAgPHhzOmNvbXBsZXhUeXBlIG5hbWU9Ikxp
+Z2h0X1NlZ21lbnQiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9
+ImNvbG9yIiB0eXBlPSJ4czpzdHJpbmciIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+
+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJkaWFtZXRlciIgdHlwZT0ieHM6ZG91YmxlIiBtaW5P
+Y2N1cnM9IjAiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzZWdtZW50X2lkIiB0eXBlPSJ4
+czpzdHJpbmciIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgPC94czpzZXF1
+ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQgbmFtZT0iTGlnaHRfU2Vn
+bWVudCIgdHlwZT0idG5zOkxpZ2h0X1NlZ21lbnQiIC8+DQoNCiAgPHhzOmNvbXBsZXhUeXBlIG5h
+bWU9Ikxpc3RPZkxpZ2h0X1NlZ21lbnQiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czpl
+bGVtZW50IG5hbWU9IkxpZ2h0X1NlZ21lbnQiIHR5cGU9InRuczpMaWdodF9TZWdtZW50IiBtaW5P
+Y2N1cnM9IjAiIG1heE9jY3Vycz0idW5ib3VuZGVkIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAgICA8
+L3hzOnNlcXVlbmNlPg0KICA8L3hzOmNvbXBsZXhUeXBlPg0KICA8eHM6ZWxlbWVudCBuYW1lPSJM
+aXN0T2ZMaWdodF9TZWdtZW50IiB0eXBlPSJ0bnM6TGlzdE9mTGlnaHRfU2VnbWVudCIgbmlsbGFi
+bGU9InRydWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iQmxhbmsi
+Pg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9ImJsYW5rX3R5cGUi
+IHR5cGU9InhzOnN0cmluZyIgbWluT2NjdXJzPSIwIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAgICAg
+IDx4czplbGVtZW50IG5hbWU9ImJsYW5rX2lkIiB0eXBlPSJ4czpzdHJpbmciIG1pbk9jY3Vycz0i
+MCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJwYXJ0X2lkIiB0
+eXBlPSJ4czpkb3VibGUiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICA8L3hzOnNlcXVlbmNlPg0KICA8
+L3hzOmNvbXBsZXhUeXBlPg0KICA8eHM6ZWxlbWVudCBuYW1lPSJCbGFuayIgdHlwZT0idG5zOkJs
+YW5rIiAvPg0KDQogIDx4czpjb21wbGV4VHlwZSBuYW1lPSJMaXN0T2ZCbGFuayI+DQogICAgPHhz
+OnNlcXVlbmNlPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iQmxhbmsiIHR5cGU9InRuczpCbGFu
+ayIgbWluT2NjdXJzPSIwIiBtYXhPY2N1cnM9InVuYm91bmRlZCIgbmlsbGFibGU9InRydWUiIC8+
+DQogICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQg
+bmFtZT0iTGlzdE9mQmxhbmsiIHR5cGU9InRuczpMaXN0T2ZCbGFuayIgbmlsbGFibGU9InRydWUi
+PjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iUmF3X01hdGVyaWFsIj4N
+CiAgICA8eHM6c2VxdWVuY2U+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJibGFua190eXBlIiB0
+eXBlPSJ0bnM6TGlzdE9mQmxhbmsiIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQog
+ICAgICA8eHM6ZWxlbWVudCBuYW1lPSJibGFua19udW1iZXIiIHR5cGU9InhzOmRvdWJsZSIgbWlu
+T2NjdXJzPSIwIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQog
+IDx4czplbGVtZW50IG5hbWU9IlJhd19NYXRlcmlhbCIgdHlwZT0idG5zOlJhd19NYXRlcmlhbCIg
+Lz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iTGlzdE9mUmF3X01hdGVyaWFsIj4NCiAgICA8
+eHM6c2VxdWVuY2U+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJSYXdfTWF0ZXJpYWwiIHR5cGU9
+InRuczpSYXdfTWF0ZXJpYWwiIG1pbk9jY3Vycz0iMCIgbWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5p
+bGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+
+DQogIDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlJhd19NYXRlcmlhbCIgdHlwZT0idG5zOkxpc3RP
+ZlJhd19NYXRlcmlhbCIgbmlsbGFibGU9InRydWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29t
+cGxleFR5cGUgbmFtZT0iU1dBUF9PcmRlciI+DQogICAgPHhzOnNlcXVlbmNlPg0KICAgICAgPHhz
+OmVsZW1lbnQgbmFtZT0ib3JkZXJfaWQiIHR5cGU9InhzOmRvdWJsZSIgbWluT2NjdXJzPSIwIiAv
+Pg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ic3RhbmQiIHR5cGU9InRuczpTdGFuZF9TZWdtZW50
+IiBtaW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFt
+ZT0ic2VnbWVudHMiIHR5cGU9InRuczpMaXN0T2ZMaWdodF9TZWdtZW50IiBtaW5PY2N1cnM9IjAi
+IG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0ibnVtYmVyX2xpZ2h0
+X3NlZ21lbnRzIiB0eXBlPSJ4czpkb3VibGUiIG1pbk9jY3Vycz0iMCIgLz4NCiAgICA8L3hzOnNl
+cXVlbmNlPg0KICA8L3hzOmNvbXBsZXhUeXBlPg0KICA8eHM6ZWxlbWVudCBuYW1lPSJTV0FQX09y
+ZGVyIiB0eXBlPSJ0bnM6U1dBUF9PcmRlciIgLz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0i
+TGlzdE9mU1dBUF9PcmRlciI+DQogICAgPHhzOnNlcXVlbmNlPg0KICAgICAgPHhzOmVsZW1lbnQg
+bmFtZT0iU1dBUF9PcmRlciIgdHlwZT0idG5zOlNXQVBfT3JkZXIiIG1pbk9jY3Vycz0iMCIgbWF4
+T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+
+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlNXQVBfT3Jk
+ZXIiIHR5cGU9InRuczpMaXN0T2ZTV0FQX09yZGVyIiBuaWxsYWJsZT0idHJ1ZSI+PC94czplbGVt
+ZW50Pg0KDQo8L3hzOnNjaGVtYT4=</ByteString>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15037" BrowseName="NamespaceUri" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>NamespaceUri</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">http://swap.demo.scenario.fraunhofer.de/Types.xsd</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15038" BrowseName="Deprecated" ParentNodeId="ns=1;i=15035" DataType="Boolean">
+    <DisplayName>Deprecated</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <Boolean xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">true</Boolean>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15039" BrowseName="1:Stand_Segment" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>Stand_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Stand_Segment']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15042" BrowseName="1:Light_Segment" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>Light_Segment</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Light_Segment']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15045" BrowseName="1:Blank" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>Blank</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Blank']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15048" BrowseName="1:Raw_Material" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>Raw_Material</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Raw_Material']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15051" BrowseName="1:SWAP_Order" ParentNodeId="ns=1;i=15035" DataType="String">
+    <DisplayName>SWAP_Order</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15035</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='SWAP_Order']</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=15054" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15001</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15055" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15002</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15056" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15003</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15057" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15004</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15058" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15005</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>
