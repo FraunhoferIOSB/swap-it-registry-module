@@ -96,7 +96,7 @@ add_executable(swap-it-registry-module main.c
 )
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/deps/cmake")
-add_dependencies(swap-it-registry-module open62541-generator-ns-common)
+add_dependencies(swap-it-registry-module open62541-generator-ns-common open62541-generator-ns-pfdl_parameter open62541-generator-ns-warehouse )
 target_link_libraries(swap-it-registry-module open62541::open62541)
 target_link_libraries(swap-it-registry-module pthread)
 
