@@ -1,0 +1,68 @@
+name: "Unit Tests"
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install Dependencies
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y git build-essential gcc pkg-config cmake python3 check 
+          sudo apt install python3-pip -y
+          pip3 install coverage
+          pip3 install gcovr
+          git clone https://github.com/open62541/open62541
+          cd open62541
+          git fetch --all --tags
+          git checkout tags/v1.4.6 -b v1.4.6-branch
+          git submodule update --init --recursive
+          mkdir build && cd build
+          cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DUA_NAMESPACE_ZERO=FULL -DUA_ENABLE_JSON_ENCODING=ON -DUA_MULTITHREADING=200 ..
+          sudo make install
+          cd ..
+          git clone https://github.com/FraunhoferIOSB/swap-it-open62541-server-template.git
+          cd swap-it-open62541-server-template
+          mkdir build && cd build
+          cmake ..
+          sudo make install
+          cd /home/runner/work/swap-it-registry-module
+          ls
+          pwd
+      - name: Fetch
+        uses: actions/checkout@v4
+        with:
+          path: main
+      - name: Run registry module coverage tests
+        run: |
+          cd main
+          mkdir build && cd build
+          cmake ..
+          sudo make -j $(nproc)
+          sudo make test
+          gcovr -r .. --gcov-ignore-parse-errors -e ../build/ -e ../deps/ -e ../tests/ -e ../main.c -o /home/runner/work/swap-it-registry-module/coverage.html      
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          gcov: true
+          gcov_include:
+            registry_module_callback_functions.c
+            registry_module_capability_matching_functions.c
+            registry_module_clear.c
+            registry_module_client_interface.c
+            registry_module_config_parse.c
+            registry_module_init.c
+            registry_module_internal.c
+            registry_module_namespace_solver.c
+            registry_module_node_iterator.c
+            registry_module_register_agent.c
+            registry_module_synchronization.c
+
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: FlorianDue/check_server_template
