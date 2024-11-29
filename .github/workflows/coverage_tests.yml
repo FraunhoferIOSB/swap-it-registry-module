@@ -65,4 +65,4 @@ jobs:
             registry_module_synchronization.c
 
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: FlorianDue/check_server_template
+          slug: FlorianDue/check_registry_module
