@@ -14,11 +14,6 @@
 #include <open62541/server_config_default.h>
 #include <signal.h>
 
-/*typedef struct{
-    UA_NodeId id;
-    UA_Server *server;
-    UA_QualifiedName name;
-}UA_Server_find_Node;*/
 
 typedef struct{
     UA_Boolean register_server;
