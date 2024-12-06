@@ -299,7 +299,7 @@ The application then returns the following results from the Filter Agents Method
 Since the NodeIds of the registered assets are generated during the registration process, the returned NodeIds from individual executions might differ to the above listed.
 
 
-For the second approach, a String and a numeric capability is set as input argument, so that only a subset of the five assets is returned from the Filter Agents Method.
+For the `second approach (capability_filtering) <https://github.com/FraunhoferIOSB/swap-it-registry-module/blob/main/tutorials/filter/capability_filtering.c>`_, a String and a numeric capability is set as input argument, so that only a subset of the five assets is returned from the Filter Agents Method.
 The Code from the first approach can be re-used, however beginning at the section *create the input arguments*, the code must be adjusted as followed:
 
 .. code-block:: c
