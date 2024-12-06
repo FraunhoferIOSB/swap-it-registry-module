@@ -486,6 +486,9 @@ UA_StatusCode filter_agents(UA_Server *server,
                         break;
                     }
                 }
+                if(agent_is_suitable == false){
+                    break;
+                }
             }
             if(agent_is_suitable == true){
                 agent_result_list = (UA_NodeId*) UA_realloc(agent_result_list, (number_result_agents+1)*sizeof(UA_NodeId));
