@@ -104,6 +104,7 @@ target_link_libraries(swap-it-registry-module pthread)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/deps/cmake")
 enable_testing()
 add_subdirectory(tests/unit_tests)
+add_subdirectory(tutorials)
 
 macro(print_all_variables)
     message(STATUS "print_all_variables------------------------------------------{")
