@@ -1,4 +1,4 @@
-name: "Unit Tests"
+name: "Coverage Tests"
 on:
   push:
     branches: [ main ]
