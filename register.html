@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register SWAP Assets &mdash; SWAP-IT Registry Module 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Unregister SWAP Assets" href="unregister.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SWAP-IT Registry Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="swap-it-architecture.html">SWAP-IT Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="build_from_scratch.html">Build the Registry Module from the Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_from_docker.html">Deploy pre-build Docker container</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Register SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#manual-registration">Manual Registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration-with-the-open62541-server-template">Registration with the open62541-server-template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="unregister.html">Unregister SWAP Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filter.html">Filter SWAP Assets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SWAP-IT Registry Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="getting_started.html">Getting Started</a></li>
+          <li class="breadcrumb-item"><a href="tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Register SWAP Assets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/register.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="register-swap-assets">
+<h1>Register SWAP Assets<a class="headerlink" href="#register-swap-assets" title="Link to this heading"></a></h1>
+<p>There are several ways to register SWAP Assets within the Registry Module:
+- Add Agent Method within the Registry Module
+- Register Method from the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-common-information-model">Common Information Model</a> (the method callback is provided within the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>)
+- Json Configuration of the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a></p>
+<p>For all registering approaches, the Registry Module must be started first:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*build and start the registry module*/</span>
+<span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/FraunhoferIOSB/swap-it-registry-module</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="n">cmake</span><span class="w"> </span><span class="p">..</span>
+<span class="n">make</span>
+<span class="p">.</span><span class="o">/</span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+</pre></div>
+</div>
+<section id="manual-registration">
+<h2>Manual Registration<a class="headerlink" href="#manual-registration" title="Link to this heading"></a></h2>
+<p>The repository provides a dummy server that can be deployed to test the manual registration. The server utilizes the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>, however, in the first steps,
+tha manual registration, namely without the json configuration, are illustrated. The dummy server corresponds to the <a class="reference external" href="https://swap-it.github.io/demo-scenario/beginner.html">SWAP-IT Demo Scenario Beginner Tutorial</a> so that the construction of the server is not explained here in detail.</p>
+<p>The code for the server can be found within <em>tutorials/register/register_manually.c</em> in this repository. The executable can be started with</p>
+<div class="highlight-c notranslate" id="register-manually"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="p">.</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">register_manually</span>
+</pre></div>
+</div>
+<p>On the code basis, the SWAP Server is configured based on a JSON:</p>
+<div class="highlight-c notranslate" id="json"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nl">application_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;warehouse&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">resource_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4840&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">module_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WarehouseModuleType&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">module_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WarehouseModule&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">service_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GetPartsFromWarehouse&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and build with the open62541-server-template:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">UA_ByteString</span><span class="w"> </span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;{</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  application_name: </span><span class="se">\&quot;</span><span class="s">warehouse_dr1</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  resource_ip: </span><span class="se">\&quot;</span><span class="s">localhost</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  port: </span><span class="se">\&quot;</span><span class="s">4840</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  module_type: </span><span class="se">\&quot;</span><span class="s">WarehouseModuleType</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  module_name: </span><span class="se">\&quot;</span><span class="s">WarehouseModule</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  service_name: </span><span class="se">\&quot;</span><span class="s">GetPartsFromWarehouse</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;}&quot;</span><span class="p">);</span>
+
+<span class="cm">/* the structure UA_service_server_interpreter will return the pre-defined information about the server</span>
+<span class="cm">* from the json configuration*/</span>
+<span class="n">UA_service_server_interpreter</span><span class="w"> </span><span class="n">swap_server</span><span class="p">;</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">swap_server</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">UA_service_server_interpreter</span><span class="p">));</span>
+<span class="cm">/* with the function UA_server_swap_it from the open62541 server template,</span>
+<span class="cm">* it is possible to configure the OPC UA server with a single function call*/</span>
+<span class="n">UA_server_swap_it</span><span class="p">(</span><span class="n">server</span><span class="p">,</span><span class="w"> </span><span class="n">conf</span><span class="p">,</span><span class="w"> </span><span class="n">warehousemethodCallback</span><span class="p">,</span><span class="w"> </span><span class="n">UA_FALSE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">,</span><span class="w"> </span><span class="n">UA_FALSE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">swap_server</span><span class="p">);</span>
+<span class="n">UA_ByteString_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">conf</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The server can now be registered within the registry module, either with the <em>Add Agent Method</em> provided by the registry module, or with the <em>register method</em> inside the server. Both can be called with the UA Expert Client.</p>
+<section id="registering-with-the-add-agent-method">
+<h3>Registering with the Add Agent Method<a class="headerlink" href="#registering-with-the-add-agent-method" title="Link to this heading"></a></h3>
+<p>First, the server can now be registered from the registry:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/add_agent.png"><img alt="SWAP-IT Overview" src="_images/add_agent.png" style="width: 100%;" />
+</a>
+</figure>
+<p>The Method requires four arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>service_name: Name of the Service offered from the server</p></li>
+<li><p>address: the web-address of the server</p></li>
+<li><p>port: the port of the server</p></li>
+<li><p>moduleType: the name of the SWAP-Module (see <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-common-information-model">Common Information Model</a>) that is offered by the server</p></li>
+</ul>
+</div></blockquote>
+<p>Now, its possible to set the values based on the <a class="reference internal" href="#json">JSON</a> Config:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>service_name: GetPartsFromWarehouse</p></li>
+<li><p>address: localhost</p></li>
+<li><p>port: 4840</p></li>
+<li><p>moduleType: WarehouseModule</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/add_agent_parameterized.png"><img alt="SWAP-IT Overview" src="_images/add_agent_parameterized.png" style="width: 100%;" />
+</a>
+</figure>
+<p>Now we can check the registered server in the registry module. When changing some of the mapped values within the swap server (opc.tcp://localhost:4840), they are now mapped to and synchronized with the registry.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/registered_agent.png"><img alt="SWAP-IT Overview" src="_images/registered_agent.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+<section id="registering-with-the-register-method">
+<h3>Registering with the register Method<a class="headerlink" href="#registering-with-the-register-method" title="Link to this heading"></a></h3>
+<p>The second manual registering approach arises from the server itself. The <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a> includes the corresponding callback, so that,
+when utilizing the template to build the server, the method can be called directly. The server to be registers is the same compared to the Add Agent registration, however, the server, as well as the registry module,
+must be restarted or the server must be unregistered from the registry module, since a single server can only be registered once.</p>
+<p>The register method requires different arguments, compared to the add agent method:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/register.png"><img alt="SWAP-IT Overview" src="_images/register.png" style="width: 100%;" />
+</a>
+</figure>
+<p>The Method requires two arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Registry URL: URL of the registry module</p></li>
+<li><p>Resource URL: URL of the server</p></li>
+</ul>
+</div></blockquote>
+<p>Both arguments can be set with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Registry URL: localhost:8000</p></li>
+<li><p>Resource URL: localhost:4840</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/register_parameterized.png"><img alt="SWAP-IT Overview" src="_images/register_parameterized.png" style="width: 100%;" />
+</a>
+</figure>
+<p>Now we can check the registered server in the registry module. When changing some of the mapped values within the swap server (opc.tcp://localhost:4840), they are now mapped to and synchronized with the registry.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/registered_agent.png"><img alt="SWAP-IT Overview" src="_images/registered_agent.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="registration-with-the-open62541-server-template">
+<span id="registration"></span><h2>Registration with the open62541-server-template<a class="headerlink" href="#registration-with-the-open62541-server-template" title="Link to this heading"></a></h2>
+<p>For the registration with the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>, the JSON config has to be appended with the argument <em>device_registry:”opc.tcp://localhost:8000”</em></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nl">application_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;warehouse&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">resource_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">port</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4840&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">module_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WarehouseModuleType&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">module_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;WarehouseModule&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">service_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GetPartsFromWarehouse&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nl">device_registry</span><span class="p">:</span><span class="s">&quot;opc.tcp://localhost:8000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Besides, the argument  <em>UA_Boolean register_agent_in_registry</em> of the utility function <em>UA_server_swap_it()</em> has to be set to true.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">UA_ByteString</span><span class="w"> </span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;{</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  application_name: </span><span class="se">\&quot;</span><span class="s">warehouse_dr1</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  resource_ip: </span><span class="se">\&quot;</span><span class="s">localhost</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  port: </span><span class="se">\&quot;</span><span class="s">4840</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  module_type: </span><span class="se">\&quot;</span><span class="s">WarehouseModuleType</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  module_name: </span><span class="se">\&quot;</span><span class="s">WarehouseModule</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  service_name: </span><span class="se">\&quot;</span><span class="s">GetPartsFromWarehouse</span><span class="se">\&quot;</span><span class="s">,</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;  device_registry:</span><span class="se">\&quot;</span><span class="s">opc.tcp://localhost:8000</span><span class="se">\&quot;\n</span><span class="s">&quot;</span>
+<span class="w">                                             </span><span class="s">&quot;}&quot;</span><span class="p">);</span>
+
+<span class="cm">/* the structure UA_service_server_interpreter will return the pre-defined information about the server</span>
+<span class="cm">* from the json configuration*/</span>
+<span class="n">UA_service_server_interpreter</span><span class="w"> </span><span class="n">swap_server</span><span class="p">;</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">swap_server</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">UA_service_server_interpreter</span><span class="p">));</span>
+<span class="cm">/* with the function UA_server_swap_it from the open62541 server template,</span>
+<span class="cm">* it is possible to configure the OPC UA server with a single function call*/</span>
+<span class="n">UA_server_swap_it</span><span class="p">(</span><span class="n">server</span><span class="p">,</span><span class="w"> </span><span class="n">conf</span><span class="p">,</span><span class="w"> </span><span class="n">warehousemethodCallback</span><span class="p">,</span><span class="w"> </span><span class="n">UA_FALSE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">,</span><span class="w"> </span><span class="n">UA_TRUE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">swap_server</span><span class="p">);</span>
+<span class="n">UA_ByteString_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">conf</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now, th asset can now be registered by simply staring the executable. However, it must be considered that the registry module must be running to register an agent</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="p">.</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="k">register</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="unregister.html" class="btn btn-neutral float-right" title="Unregister SWAP Assets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Fraunhofer IOSB (Author:Florian Düwel).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

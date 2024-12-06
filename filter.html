@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filter SWAP Assets &mdash; SWAP-IT Registry Module 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Related-Projects" href="related_projects.html" />
+    <link rel="prev" title="Unregister SWAP Assets" href="unregister.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SWAP-IT Registry Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="swap-it-architecture.html">SWAP-IT Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="build_from_scratch.html">Build the Registry Module from the Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_from_docker.html">Deploy pre-build Docker container</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register SWAP Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unregister.html">Unregister SWAP Assets</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Filter SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#starting-the-environment">Starting the Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-with-the-ua-expert-client">Filtering with the UA-Expert Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filtering-with-the-open62541-client">Filtering with the open62541-Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SWAP-IT Registry Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="getting_started.html">Getting Started</a></li>
+          <li class="breadcrumb-item"><a href="tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Filter SWAP Assets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/filter.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="filter-swap-assets">
+<h1>Filter SWAP Assets<a class="headerlink" href="#filter-swap-assets" title="Link to this heading"></a></h1>
+<p>In this tutorial, two approaches are introduced on how to filter assets from the registry module:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Filtering with the <a class="reference external" href="https://www.unified-automation.com/de/downloads/opc-ua-clients.html">UA-Expert Client</a></p></li>
+<li><p>Implementing an individual <a class="reference external" href="https://github.com/open62541/open62541">open62541-based</a> client application for the filtering</p></li>
+</ul>
+</div></blockquote>
+<section id="starting-the-environment">
+<h2>Starting the Environment<a class="headerlink" href="#starting-the-environment" title="Link to this heading"></a></h2>
+<p>For the filtering, a set of resources with different capabilities is required. Here, the Warehouse resource configs from the unit test are re-used for simplicity.
+In addition, it is possible to re-use a utility function from the unit tests <em>start_swap_server_thread()</em> for a simplified start of resources. Since the resources utilize the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>
+they are automatically registered within the registry module. However, it is required to start the swap-it-registry-module first, so that the resources are registered successfully:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*start the registry module*/</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="n">cmake</span><span class="w"> </span><span class="p">..</span>
+<span class="n">make</span>
+<span class="p">.</span><span class="o">/</span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+</pre></div>
+</div>
+<p>Next, the resources are configured. The code is also available in the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-registry-module/tree/main/tutorials/filter/filter.c">Filter Tutorial</a>. Here, the structure <em>test_swap_server_config</em>
+is set for each resource, so that five resources are configured. Since each resource runs in a separate thread, the loop in the main function executes only a sleep.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;../../tests/include/start_swap_server.h&quot;</span>
+
+<span class="n">UA_Boolean</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stopHandler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sign</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">UA_LOG_INFO</span><span class="p">(</span><span class="n">UA_Log_Stdout</span><span class="p">,</span><span class="w"> </span><span class="n">UA_LOGCATEGORY_SERVER</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;received ctrl-c&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="cm">/*run a swap server that registers itself in the registry module*/</span>
+<span class="w">  </span><span class="n">test_swap_server_config</span><span class="w"> </span><span class="n">aggregate_conf_1</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_1</span><span class="p">.</span><span class="n">register_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_1</span><span class="p">.</span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_1</span><span class="p">.</span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../tests/configs/warehouse.json5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">start_swap_server_thread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">aggregate_conf_1</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">test_swap_server_config</span><span class="w"> </span><span class="n">aggregate_conf_2</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_2</span><span class="p">.</span><span class="n">register_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_2</span><span class="p">.</span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_2</span><span class="p">.</span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../tests/configs/warehouse_1.json5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">start_swap_server_thread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">aggregate_conf_2</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">test_swap_server_config</span><span class="w"> </span><span class="n">aggregate_conf_3</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_3</span><span class="p">.</span><span class="n">register_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_3</span><span class="p">.</span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_3</span><span class="p">.</span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../tests/configs/warehouse_2.json5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">start_swap_server_thread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">aggregate_conf_3</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">test_swap_server_config</span><span class="w"> </span><span class="n">aggregate_conf_4</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_4</span><span class="p">.</span><span class="n">register_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_4</span><span class="p">.</span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_4</span><span class="p">.</span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../tests/configs/warehouse_3.json5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">start_swap_server_thread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">aggregate_conf_4</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">test_swap_server_config</span><span class="w"> </span><span class="n">aggregate_conf_5</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_5</span><span class="p">.</span><span class="n">register_server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_5</span><span class="p">.</span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">;</span>
+<span class="w">  </span><span class="n">aggregate_conf_5</span><span class="p">.</span><span class="n">conf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;../../tests/configs/warehouse_4.json5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">start_swap_server_thread</span><span class="p">(</span><span class="o">&amp;</span><span class="n">aggregate_conf_5</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">while</span><span class="p">(</span><span class="n">running</span><span class="p">)</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With the code, it is now possible to execute the script:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="n">cmake</span><span class="w"> </span><span class="p">..</span>
+<span class="n">make</span><span class="w"> </span><span class="n">filter</span>
+<span class="p">.</span><span class="o">/</span><span class="n">filter</span>
+</pre></div>
+</div>
+<p>The resources run on the following urls:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>opc.tcp://localhost:4080</p></li>
+<li><p>opc.tcp://localhost:4081</p></li>
+<li><p>opc.tcp://localhost:4082</p></li>
+<li><p>opc.tcp://localhost:4083</p></li>
+<li><p>opc.tcp://localhost:4084</p></li>
+</ul>
+</div></blockquote>
+<p>The ports can be changed in the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-registry-module/tree/main/tests/configs">JSON configuration files</a> of the resources.
+The registered resources can now be check when connecting to the registry module, which runs on the url <em>opc.tcp://localhost:8000</em></p>
+</section>
+<section id="filtering-with-the-ua-expert-client">
+<h2>Filtering with the UA-Expert Client<a class="headerlink" href="#filtering-with-the-ua-expert-client" title="Link to this heading"></a></h2>
+<p>For a simple testing, the resources can be filtered with only setting the <em>service_name</em> argument of the <em>Filter Agents</em> method:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>service_name:GetPartsFromWarehouse</p></li>
+</ul>
+</div></blockquote>
+<p>and the invoking the method.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/call_empty_filter.png"><img alt="SWAP-IT Overview" src="_images/call_empty_filter.png" style="width: 100%;" />
+</a>
+</figure>
+<p>The registry module then returns a list with the NodeIds, of the corresponding objects within the registry module, of all suitable resources. However, since no capabilities are set, all resources are returned:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/result_empty_filter.png"><img alt="SWAP-IT Overview" src="_images/result_empty_filter.png" style="width: 100%;" />
+</a>
+</figure>
+<p>In the next step, it is now possible to set some capabilities to restrict the number of returned resources, evaluated by the registry module. Each of the resources provides a numeric, a boolean and a string capability:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>test_numeric</p></li>
+<li><p>test_boolean</p></li>
+<li><p>test_string</p></li>
+</ul>
+</div></blockquote>
+<p>For this, the arguments of the method call must be adjusted with additional arguments, for example when filtering based on the test_string, the method arguments must be set as following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>service_name:GetPartsFromWarehouse</p></li>
+<li><p>Capability_Names:{test_string}</p></li>
+<li><p>Capability_Items:{test string}</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/filter_ua_capa.png"><img alt="SWAP-IT Overview" src="_images/filter_ua_capa.png" style="width: 100%;" />
+</a>
+</figure>
+<p><strong>Important Note:</strong></p>
+<p>Both, the Capability_Names and the Capability_Items are Arrays, so that, even for single capability values, the arguments must be provided as arrays. In addition, the length of both arrays have to be equal.</p>
+<p>Different to the method call with no capabilities, the method returns with these arguments only a single resource:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/call_capa_results.png"><img alt="SWAP-IT Overview" src="_images/call_capa_results.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+<section id="filtering-with-the-open62541-client">
+<h2>Filtering with the open62541-Client<a class="headerlink" href="#filtering-with-the-open62541-client" title="Link to this heading"></a></h2>
+<p>For the open62541 client application, first a stop handler must be defined, as well as a custom structure type which is deployed to search the method node within the registry module address space:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open62541/types.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open62541/client_config_default.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open62541/client_highlevel.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;open62541/plugin/log_stdout.h&gt;</span>
+
+<span class="n">UA_Boolean</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stopHandler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sign</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="n">UA_LOG_INFO</span><span class="p">(</span><span class="n">UA_Log_Stdout</span><span class="p">,</span><span class="w"> </span><span class="n">UA_LOGCATEGORY_SERVER</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;received ctrl-c&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="p">{</span>
+<span class="w"> </span><span class="n">UA_Client</span><span class="w"> </span><span class="o">*</span><span class="n">client</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_NodeId</span><span class="w"> </span><span class="o">*</span><span class="n">children_ids</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_QualifiedName</span><span class="w"> </span><span class="o">*</span><span class="n">children_names</span><span class="p">;</span>
+<span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">nbr_children</span><span class="p">;</span>
+<span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">required_children</span><span class="p">;</span>
+<span class="p">}</span><span class="n">search_nodes</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Next, a callback function to search the method node is required:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">UA_StatusCode</span><span class="w"> </span><span class="nf">search_method_node</span><span class="p">(</span><span class="n">UA_NodeId</span><span class="w"> </span><span class="n">childId</span><span class="p">,</span><span class="w"> </span><span class="n">UA_Boolean</span><span class="w"> </span><span class="n">isInverse</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NodeId</span><span class="w"> </span><span class="n">referenceTypeId</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">handle</span><span class="p">){</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">isInverse</span><span class="p">){</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="cm">/*the nodes of the registry module are related to each other only with the HasComponent reference,</span>
+<span class="cm">  *so that nodes with other reference relations can be ignored*/</span>
+<span class="w"> </span><span class="n">UA_NodeId</span><span class="w"> </span><span class="n">has_component_nodeId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_NODEID_NUMERIC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NS0ID_HASCOMPONENT</span><span class="p">);</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">UA_NodeId_equal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">referenceTypeId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">has_component_nodeId</span><span class="p">)){</span>
+<span class="w">   </span><span class="n">UA_NodeId_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">has_component_nodeId</span><span class="p">);</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="n">search_nodes</span><span class="w"> </span><span class="o">*</span><span class="n">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">search_nodes</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_QualifiedName</span><span class="w"> </span><span class="n">qname</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_QualifiedName_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">qname</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_Client_readBrowseNameAttribute</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">childId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">qname</span><span class="p">);</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">UA_QualifiedName_equal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">qname</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">children_names</span><span class="p">[</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">nbr_children</span><span class="p">])){</span>
+<span class="w">  </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">qname</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/*if the current child Node is the Node with the desired browsename, copy the nodeId*/</span>
+<span class="w">  </span><span class="n">UA_NodeId_copy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">childId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">children_ids</span><span class="p">[</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">nbr_children</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">nbr_children</span><span class="w"> </span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/*if all nodes are found, abort th search*/</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">nbr_children</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">required_children</span><span class="p">){</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="cm">/*else restart the search from the Objects Node, since the desired node might already have been checked*/</span>
+<span class="w">  </span><span class="n">UA_Client_forEachChildNodeCall</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NODEID_NUMERIC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NS0ID_OBJECTSFOLDER</span><span class="p">),</span><span class="w"> </span><span class="n">search_method_node</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="cm">/*continue the search from the current child Node*/</span>
+<span class="w"> </span><span class="n">UA_Client_forEachChildNodeCall</span><span class="p">(</span><span class="n">handler</span><span class="o">-&gt;</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">childId</span><span class="p">,</span><span class="w"> </span><span class="n">search_method_node</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">qname</span><span class="p">);</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Lastly, it is now possible to define the main loop of the client, which includes the creation of the client, the browsing of the registry module address space for the Filter Agents Method,
+the definition of input arguments, as well as the method call with the client. For the first <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-registry-module/blob/main/tutorials/filter/service_filtering.c">approach (service_filtering)</a>,
+no capabilities are specified, so that the NodeId from each of the five available assets is returned:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">){</span>
+<span class="w"> </span><span class="cm">/*create a client*/</span>
+<span class="w"> </span><span class="n">UA_Client</span><span class="w"> </span><span class="o">*</span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Client_new</span><span class="p">();</span>
+<span class="w"> </span><span class="n">UA_ClientConfig</span><span class="w"> </span><span class="o">*</span><span class="n">cc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Client_getConfig</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_ClientConfig_setDefault</span><span class="p">(</span><span class="n">cc</span><span class="p">);</span>
+<span class="w"> </span><span class="cm">/*connect the client to the registry module*/</span>
+<span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;opc.tcp://localhost:8000&quot;</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_StatusCode</span><span class="w"> </span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Client_connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*search the PFDLServiceAgents Object and the FilerAgents Method*/</span>
+<span class="w"> </span><span class="cm">/*define the structure, 2 nodes are required*/</span>
+<span class="w"> </span><span class="n">search_nodes</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span>
+<span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="p">;</span>
+<span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">nbr_children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">required_children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_NodeId</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">UA_NodeId</span><span class="p">));</span>
+<span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_QualifiedName</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_calloc</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">UA_QualifiedName</span><span class="p">));</span>
+<span class="w"> </span><span class="cm">/*set the browsenames of the desired nodes*/</span>
+<span class="w"> </span><span class="n">UA_QualifiedName</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_QUALIFIEDNAME</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PFDLServiceAgents&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_QualifiedName</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_QUALIFIEDNAME</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Filter_Agents&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_QualifiedName_copy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">object</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_QualifiedName_copy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w"> </span><span class="cm">/*browse the address space of the registry module*/</span>
+<span class="w"> </span><span class="n">UA_Client_forEachChildNodeCall</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NODEID_NUMERIC</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">UA_NS0ID_OBJECTSFOLDER</span><span class="p">),</span><span class="w"> </span><span class="n">search_method_node</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*create the input arguments*/</span>
+<span class="w"> </span><span class="n">UA_Variant</span><span class="w"> </span><span class="o">*</span><span class="n">inp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_Variant</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_Array_new</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="n">service_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;GetPartsFromWarehouse&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_Variant_setScalarCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">service_name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_Variant_setScalarCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">empty</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_Variant_setScalarCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">empty</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="cm">/*variant for the method results*/</span>
+<span class="w"> </span><span class="n">UA_Variant</span><span class="w"> </span><span class="o">*</span><span class="n">outp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Variant_new</span><span class="p">();</span>
+<span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">outp_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w"> </span><span class="cm">/*call the Filter Agents Method*/</span>
+<span class="w"> </span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Client_call</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">inp</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outp_size</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outp</span><span class="p">);</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">retval</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">){</span>
+<span class="w">  </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="cm">/*print the results of the service call*/</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_STRING_NULL</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_print</span><span class="p">(</span><span class="n">outp</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">out</span><span class="p">);</span>
+<span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Filtered Assets: %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">out</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_String_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">out</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*main loop of the client*/</span>
+<span class="w"> </span><span class="k">while</span><span class="p">(</span><span class="n">running</span><span class="p">)</span>
+<span class="w">  </span><span class="n">UA_Client_run_iterate</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*clear memory*/</span>
+<span class="w"> </span><span class="nl">cleanup</span><span class="p">:</span>
+<span class="w">  </span><span class="n">UA_Client_disconnect</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_Client_delete</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_NodeId_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_NodeId_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">);</span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_Array_delete</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_Variant_delete</span><span class="p">(</span><span class="n">outp</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_String_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_String_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">service_name</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">retval</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The application then returns the following results from the Filter Agents Method:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>i=54820</p></li>
+<li><p>i=55006</p></li>
+<li><p>i=55024</p></li>
+<li><p>i=54986</p></li>
+<li><p>i=54948</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Important Note</strong></p>
+<p>Since the NodeIds of the registered assets are generated during the registration process, the returned NodeIds from individual executions might differ to the above listed.</p>
+<p>For the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-registry-module/blob/main/tutorials/filter/capability_filtering.c">second approach (capability_filtering)</a>, a String and a numeric capability is set as input argument, so that only a subset of the five assets is returned from the Filter Agents Method.
+The Code from the first approach can be re-used, however beginning at the section <em>create the input arguments</em>, the code must be adjusted as followed:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*create the input arguments*/</span>
+<span class="w"> </span><span class="n">UA_Variant</span><span class="w"> </span><span class="o">*</span><span class="n">inp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_Variant</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_Array_new</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="n">service_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;GetPartsFromWarehouse&quot;</span><span class="p">);</span>
+
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="o">*</span><span class="n">capability_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_String</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_Array_new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="o">*</span><span class="n">capability_values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">UA_String</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">UA_Array_new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">capability_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;test_string&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">capability_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;test_numeric&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">capability_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;test string&quot;</span><span class="p">);</span>
+<span class="w"> </span><span class="n">capability_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_String_fromChars</span><span class="p">(</span><span class="s">&quot;60&quot;</span><span class="p">);</span>
+
+<span class="w"> </span><span class="n">UA_Variant_setScalarCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">service_name</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_Variant_setArrayCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">capability_names</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="n">UA_Variant_setArrayCopy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">inp</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="n">capability_values</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w"> </span><span class="cm">/*variant for the method results*/</span>
+<span class="w"> </span><span class="n">UA_Variant</span><span class="w"> </span><span class="o">*</span><span class="n">outp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Variant_new</span><span class="p">();</span>
+<span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">outp_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w"> </span><span class="cm">/*call the Filter Agents Method*/</span>
+<span class="w"> </span><span class="n">retval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_Client_call</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">inp</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outp_size</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outp</span><span class="p">);</span>
+<span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">retval</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">UA_STATUSCODE_GOOD</span><span class="p">){</span>
+<span class="w">  </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w"> </span><span class="p">}</span>
+<span class="w"> </span><span class="cm">/*print the results of the service call*/</span>
+<span class="w"> </span><span class="n">UA_String</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UA_STRING_NULL</span><span class="p">;</span>
+<span class="w"> </span><span class="n">UA_print</span><span class="p">(</span><span class="n">outp</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">out</span><span class="p">);</span>
+<span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Filtered Assets: %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">out</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+<span class="w"> </span><span class="n">UA_String_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">out</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*main loop of the client*/</span>
+<span class="w"> </span><span class="k">while</span><span class="p">(</span><span class="n">running</span><span class="p">)</span>
+<span class="w">  </span><span class="n">UA_Client_run_iterate</span><span class="p">(</span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w"> </span><span class="cm">/*clear memory*/</span>
+<span class="w"> </span><span class="nl">cleanup</span><span class="p">:</span>
+<span class="w">  </span><span class="n">UA_Client_disconnect</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_Client_delete</span><span class="p">(</span><span class="n">client</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_QualifiedName_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_NodeId_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_NodeId_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="n">children_names</span><span class="p">);</span>
+<span class="w">  </span><span class="n">free</span><span class="p">(</span><span class="n">handle</span><span class="p">.</span><span class="n">children_ids</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_Array_delete</span><span class="p">(</span><span class="n">inp</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_VARIANT</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_Array_delete</span><span class="p">(</span><span class="n">capability_names</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_Array_delete</span><span class="p">(</span><span class="n">capability_values</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">UA_TYPES</span><span class="p">[</span><span class="n">UA_TYPES_STRING</span><span class="p">]);</span>
+<span class="w">  </span><span class="n">UA_Variant_delete</span><span class="p">(</span><span class="n">outp</span><span class="p">);</span>
+<span class="w">  </span><span class="n">UA_String_clear</span><span class="p">(</span><span class="o">&amp;</span><span class="n">service_name</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">retval</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The returned results from the Filter Agents Method is a single asset with the NodeId:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>i=54892</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Important Note</strong></p>
+<p>Since the NodeIds of the registered assets are generated during the registration process, the returned NodeIds from individual executions might differ to the above listed.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="unregister.html" class="btn btn-neutral float-left" title="Unregister SWAP Assets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="related_projects.html" class="btn btn-neutral float-right" title="Related-Projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Fraunhofer IOSB (Author:Florian Düwel).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
