@@ -19,7 +19,7 @@ release = '1.0.0'
 
 html_theme_options = {
     "collapse_navigation": True,
-    "navigation_depth": 2
+    "navigation_depth": 4
 }
 
 # -- General configuration ---------------------------------------------------
