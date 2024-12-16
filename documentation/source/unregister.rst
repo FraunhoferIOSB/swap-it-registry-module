@@ -12,7 +12,7 @@ Unregister SWAP Assets
 There are several ways to unregister SWAP Assets within the Registry Module:
 - Remove Agent Method within the Registry Module
 - Unregister Method from the `Common Information Model <https://github.com/FraunhoferIOSB/swap-it-common-information-model>`_ (the method callback is provided within the `open62541-server-template <https://github.com/FraunhoferIOSB/swap-it-open62541-server-template>`_)
-- Json Configuration of the `open62541-server-template <https://github.com/FraunhoferIOSB/swap-it-open62541-server-template>`_. However, this approach automatically unregisters the agent when shutting down the server, so that no code example will be provided. The code example is availabe at `Registration`. The server must just be shut down for the un-registration.
+- Json Configuration of the `open62541-server-template <https://github.com/FraunhoferIOSB/swap-it-open62541-server-template>`_. However, this approach automatically unregisters the agent when shutting down the server, so that no code example will be provided. The code example is available at `Registration`. The server must just be shut down for the un-registration.
 
 First, the Registry Module must be started:
 
