@@ -1,0 +1,152 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SWAP-IT Architecture &mdash; SWAP-IT Registry Module 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="SWAP-IT Registry Module" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SWAP-IT Registry Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SWAP-IT Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#swap-it-software">SWAP-IT Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SWAP-IT Registry Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SWAP-IT Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/swap-it-architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="swap-it-architecture">
+<h1>SWAP-IT Architecture<a class="headerlink" href="#swap-it-architecture" title="Link to this heading"></a></h1>
+<p>The SWAP-IT architecture introduces a modular, scalable and lightweight architecture utilizing simplified semantic information
+models. In general, components of the architecture are split into two types of modules. On the one hand, the <em>Basic Modules</em> are the core components of the architecture
+by enabling the interaction with the loosely coupled components. All basic components will be published as open source software projects for a simple adaption to enable an automate integration of new processes, based on the
+<a class="reference external" href="https://github.com/iml130/pfdl">Production Flow Description Language (PFDL)</a>. On the other hand, <em>Use Case specific Modules</em> integrate existing shop floor assets, either physical assets, such as production resources, or non physical assets,
+such as optimization approaches to assign jobs to resources. Since these components can vary from production environment to production environment,
+the SWAP-IT architecture provides an easy integration mechanism for existing and new assets. As a result, the SWAP-IT architecture enables industrial production environments with a high degrees
+of flexibility, easy process integration and in addition, addresses further challenges of production environments, such as an automated
+resource parameterization for individual products, or an easy integration of new assets into a shop floor.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/swap_it_general.PNG"><img alt="SWAP-IT Overview" src="_images/swap_it_general.PNG" style="width: 100%;" />
+</a>
+</figure>
+<p>For this to be achieved, one process module executes exactly one process that is specified in the PFDL format.
+The Enterprise Resource Planning (ERP) module is utilized to submit orders and the registry module makes resources available for process agents. Each resource on a shop floor is defined as a SWAP-IT Asset (<em>Use-Case Specific Modules</em>). Such assets can easily
+be defined by utilizing the SWAP-IT <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-common-information-model">Common Information Model</a>. As a result, new assets can easily be integrated into the architecture.
+An example interaction between the SWAP-IT assets is shown in the sequence diagram below. As starting point, each shop floor <em>Asset</em> that should be available for the execution of process steps has to register itself in the <em>Registry Module</em>. Here, an arbitrary number of assets, that
+are able to execute any given process step, can register themself within the <em>Registry Module</em>.
+An Process execution starts with the submission of an order from a <em>Customer</em>. Afterwards, the <em>ERP Module</em> generates the process description (<em>PFDL</em>) for the order and transmits it to a <em>Process Agent</em>. Within the <em>Process Agent</em> the <em>PFDL Scheduler</em> interprets
+the the PFDL and starts to schedule specified services. Each scheduled service is then transmitted to the <em>Execution Engine</em>, which in turn, requests all suitable <em>Assets</em> to execute the service from the <em>Registry Module</em>. Afterwards, the <em>Execution Engine</em> interacts
+with an <em>Assignment Asset</em> to find the best asset in the context of the specified optimization approach. While these interaction steps are the recommended way to assign a service to an <em>Asset</em>, the architecture incorporates additional assignment approaches. Further details
+about these approaches can be found in the  <a class="reference external" href="https://fraunhoferiosb.github.io/swap-it-execution-engine/ResourceAssignment.html">Process Agent Project</a>. After an <em>Asset</em> is found, the <em>Execution Engine</em> initiates the service execution on this particular asset and then, returns the service result to the <em>PFDL Scheduler</em>. Although the
+sequence diagram only displays a single service execution, the <em>Process Agent</em> can execute an arbitrary number of process steps until the production process of a product is completed. After the completion of the production process, the <em>ERP Module</em> receives a notification from
+the <em>Process Agent</em> and can inform the customer that the order is completed.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/SWAPSequence.PNG"><img alt="Sequence Diagram SWAP-It Components" src="_images/SWAPSequence.PNG" style="width: 100%;" />
+</a>
+</figure>
+<section id="swap-it-software">
+<h2>SWAP-IT Software<a class="headerlink" href="#swap-it-software" title="Link to this heading"></a></h2>
+<p>The application consists of a set of loosely coupled software components. The figure below depicts all software components that are currently available as open source projects, or will be published as open source projects within 2024.
+The development status and the interaction of these components is shown in the figure below.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/img_1.png"><img alt="Development Status SWAP-IT Software Components" src="_images/img_1.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="SWAP-IT Registry Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Fraunhofer IOSB (Author:Florian Düwel).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

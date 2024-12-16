@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unregister SWAP Assets &mdash; SWAP-IT Registry Module 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Filter SWAP Assets" href="filter.html" />
+    <link rel="prev" title="Register SWAP Assets" href="register.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SWAP-IT Registry Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="swap-it-architecture.html">SWAP-IT Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="build_from_scratch.html">Build the Registry Module from the Scratch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_from_docker.html">Deploy pre-build Docker container</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register SWAP Assets</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Unregister SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#unregistering-with-the-remove-agent-method">Unregistering with the Remove Agent Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unregistering-with-the-unregister-method">Unregistering with the unregister Method</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="filter.html">Filter SWAP Assets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SWAP-IT Registry Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="getting_started.html">Getting Started</a></li>
+          <li class="breadcrumb-item"><a href="tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Unregister SWAP Assets</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/unregister.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="unregister-swap-assets">
+<h1>Unregister SWAP Assets<a class="headerlink" href="#unregister-swap-assets" title="Link to this heading"></a></h1>
+<p>There are several ways to unregister SWAP Assets within the Registry Module:
+- Remove Agent Method within the Registry Module
+- Unregister Method from the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-common-information-model">Common Information Model</a> (the method callback is provided within the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>)
+- Json Configuration of the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a>. However, this approach automatically unregisters the agent when shutting down the server, so that no code example will be provided. The code example is available at <cite>Registration</cite>. The server must just be shut down for the un-registration.</p>
+<p>First, the Registry Module must be started:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*build and start the registry module*/</span>
+<span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/FraunhoferIOSB/swap-it-registry-module</span>
+<span class="n">cd</span><span class="w"> </span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="n">cmake</span><span class="w"> </span><span class="p">..</span>
+<span class="n">make</span>
+<span class="p">.</span><span class="o">/</span><span class="n">swap</span><span class="o">-</span><span class="n">it</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">module</span>
+</pre></div>
+</div>
+<p>as well as a swap-asset, which registers itself:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="n">build</span>
+<span class="p">.</span><span class="o">/</span><span class="n">tutorials</span><span class="o">/</span><span class="n">unregister</span>
+</pre></div>
+</div>
+<section id="unregistering-with-the-remove-agent-method">
+<h2>Unregistering with the Remove Agent Method<a class="headerlink" href="#unregistering-with-the-remove-agent-method" title="Link to this heading"></a></h2>
+<p>First the asset can be removed from the registry module with the remove agent method inside the registry module:</p>
+<p>The Method requires three arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>agent_url: the web-address of the server</p></li>
+<li><p>agent_port: the port of the server</p></li>
+<li><p>service_name: Name of the Service offered from the server</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/remove_agent.png"><img alt="SWAP-IT Overview" src="_images/remove_agent.png" style="width: 100%;" />
+</a>
+</figure>
+<p>Now, its possible to set the values and execute the method:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>agent_url: localhost</p></li>
+<li><p>agent_port: 4840</p></li>
+<li><p>service_name: GetPartsFromWarehouse</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/remove_agent_parameterized.png"><img alt="SWAP-IT Overview" src="_images/remove_agent_parameterized.png" style="width: 100%;" />
+</a>
+</figure>
+<p>Finally, the server is removed from the registry module:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/removed_agent.png"><img alt="SWAP-IT Overview" src="_images/removed_agent.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+<section id="unregistering-with-the-unregister-method">
+<h2>Unregistering with the unregister Method<a class="headerlink" href="#unregistering-with-the-unregister-method" title="Link to this heading"></a></h2>
+<p>Similar to the registering approach, assets can be removed as well from the server side. Here, the <a class="reference external" href="https://github.com/FraunhoferIOSB/swap-it-open62541-server-template">open62541-server-template</a> provides a corresponding unregister method callback,</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/unregister.png"><img alt="SWAP-IT Overview" src="_images/unregister.png" style="width: 100%;" />
+</a>
+</figure>
+<p>The method requires the following arguments:</p>
+<p>The Method requires two arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Registry URL: URL of the registry module</p></li>
+<li><p>Resource URL: URL of the server</p></li>
+</ul>
+</div></blockquote>
+<p>Both arguments can be set with:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Registry URL: localhost:8000</p></li>
+<li><p>Resource URL: localhost:4840</p></li>
+</ul>
+</div></blockquote>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/unregister_parameterized.png"><img alt="SWAP-IT Overview" src="_images/unregister_parameterized.png" style="width: 100%;" />
+</a>
+</figure>
+<p>Finally, the server is removed from the registry module:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/removed_agent.png"><img alt="SWAP-IT Overview" src="_images/removed_agent.png" style="width: 100%;" />
+</a>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="register.html" class="btn btn-neutral float-left" title="Register SWAP Assets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="filter.html" class="btn btn-neutral float-right" title="Filter SWAP Assets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Fraunhofer IOSB (Author:Florian Düwel).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

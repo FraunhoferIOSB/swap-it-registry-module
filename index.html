@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SWAP-IT Registry Module &mdash; SWAP-IT Registry Module 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SWAP-IT Architecture" href="swap-it-architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            SWAP-IT Registry Module
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="swap-it-architecture.html">SWAP-IT Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">SWAP-IT Registry Module</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SWAP-IT Registry Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+</div>
+<section id="swap-it-registry-module">
+<span id="id1"></span><h1>SWAP-IT Registry Module<a class="headerlink" href="#swap-it-registry-module" title="Link to this heading"></a></h1>
+<p>The SWAP-IT Registry Module is a base module of the <a class="reference external" href="https://github.com/swap-it/demo-scenario">SWAP-IT Architecture</a>. The module is supposed to map server of SWAP-Assets and thus,
+make them available for process execution steps. Doing so, the Registry Module provides three main functionalities,
+which can be accessed through OPC UA Method calls:</p>
+<p>1. <strong>Register Asset:</strong> The addition of an Asset to the Registry Module. The Data Values are mapped to the registry module and the
+asset can be considered for process execution steps within the SWAP-IT Architecture.</p>
+<p>2. <strong>Unregister Asset:</strong> The removal of an Asset from the Registry Module. The Data Values are no longer mapped to the registry module and the
+asset cannot be considered for process execution steps within the SWAP-IT Architecture anymore.</p>
+<p>3. <strong>Filter Asset:</strong> Provision of assets to the swap-it-execution-engine from a set of registered assets. The Filter Asset Method can
+evaluate product capabilities and match them against asset capabilities.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/registry_overview.png"><img alt="SWAP-IT Overview" src="_images/registry_overview.png" style="width: 100%;" />
+</a>
+</figure>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="swap-it-architecture.html">SWAP-IT Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="swap-it-architecture.html#swap-it-software">SWAP-IT Software</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build_from_scratch.html">Build the Registry Module from the Scratch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="build_from_scratch.html#installation-requirements">Installation Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_from_scratch.html#build-and-deploy-the-registry-module">Build and Deploy the Registry Module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_from_docker.html">Deploy pre-build Docker container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="register.html">Register SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="register.html#manual-registration">Manual Registration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="register.html#registration-with-the-open62541-server-template">Registration with the open62541-server-template</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="unregister.html">Unregister SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="unregister.html#unregistering-with-the-remove-agent-method">Unregistering with the Remove Agent Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="unregister.html#unregistering-with-the-unregister-method">Unregistering with the unregister Method</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="filter.html">Filter SWAP Assets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="filter.html#starting-the-environment">Starting the Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filter.html#filtering-with-the-ua-expert-client">Filtering with the UA-Expert Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filter.html#filtering-with-the-open62541-client">Filtering with the open62541-Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="related_projects.html">Related-Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="swap-it-architecture.html" class="btn btn-neutral float-right" title="SWAP-IT Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Fraunhofer IOSB (Author:Florian Düwel).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
