@@ -7,7 +7,7 @@
  *
  */
 #include "../include/registry_module_node_iterator.h"
-
+#include <open62541/plugin/log_stdout.h>
 static UA_NodeId
 findSingleChildNode(UA_Client *client, UA_QualifiedName targetName,
                     UA_NodeId referenceTypeId, UA_NodeId startingNode);
@@ -186,13 +186,23 @@ nodeIter(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, voi
             UA_NodeId data_type_id;
             UA_NodeId_init(&data_type_id);
             UA_StatusCode retval = UA_Client_readDataTypeAttribute(handle_str->client, childId, &data_type_id);
+            UA_String out = UA_STRING_NULL;
+            /*UA_print(&data_type_id, &UA_TYPES[UA_TYPES_NODEID], &out);
+            UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Value on underlying server changed! NodeId on server: %.*s", (int)out.length, out.data);
+            UA_String_clear(&out);*/
+            UA_print(&content, &UA_TYPES[UA_TYPES_VARIANT], &out);
+            UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Value on underlying server changed! NodeId on server: %.*s", (int)out.length, out.data);
+            UA_String_clear(&out);
             if(retval != UA_STATUSCODE_GOOD)
                 printf("failed to read the data type attribute with error %s \n", UA_StatusCode_name(retval));
             if(data_type_id.namespaceIndex != 0)
                 data_type_id.namespaceIndex = map_namespace_idx(handle_str->server, handle_str->client, data_type_id.namespaceIndex);
             if(qualifiedName.namespaceIndex != 0)
                 qualifiedName.namespaceIndex = map_namespace_idx(handle_str->server, handle_str->client, qualifiedName.namespaceIndex);
-            content.type = UA_Server_findDataType(handle_str->server, &data_type_id);
+            //content.type = UA_Server_findDataType(handle_str->server, &data_type_id);
+            /*UA_print(&content.type->typeId, &UA_TYPES[UA_TYPES_NODEID], &out);
+            UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Value on underlying server changed! NodeId on server: %.*s", (int)out.length, out.data);
+            UA_String_clear(&out);*/
             UA_QualifiedName qn;
             UA_Client_readBrowseNameAttribute(handle_str->client, childId, &qn);
             UA_Byte accessLevel;
@@ -210,6 +220,7 @@ nodeIter(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, voi
             UA_Client_readValueRankAttribute(handle_str->client, childId, &outValueRank);
             variableAttributes.valueRank = outValueRank;
             UA_Client_readArrayDimensionsAttribute(handle_str->client, childId, &variableAttributes.arrayDimensionsSize, &variableAttributes.arrayDimensions);
+            printf("current variable is %s \n", (char* )qualifiedName.name.data);
             UA_StatusCode ret_val = UA_Server_addVariableNode(handle_str->server,
                                                               UA_NODEID_NUMERIC(1, 0),
                                                               handle_str->parent,
@@ -222,7 +233,11 @@ nodeIter(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, voi
             if(ret_val != UA_STATUSCODE_GOOD){
                 printf("cannot add the variable node with error %s\n", UA_StatusCode_name(ret_val));
             }
-            write_variable_value(handle_str->server, &content, data_type_id.namespaceIndex, newNode, data_type_id);
+            //UA_String out = UA_STRING_NULL;
+            /*UA_print(&content, &UA_TYPES[UA_TYPES_VARIANT], &out);
+            UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Value on underlying server changed! NodeId on server: %.*s", (int)out.length, out.data);
+            UA_String_clear(&out);*/
+            write_variable_value(handle_str->server, handle_str->client, &content, data_type_id.namespaceIndex, newNode, data_type_id);
             if(handle_str->aggregateConfig->mappingEntrys[handle_str->currentMappingIndex].synchronization == UA_AGGREGATE_SYNCHRONIZATION_CALLBACK_READ ||
                handle_str->aggregateConfig->mappingEntrys[handle_str->currentMappingIndex].synchronization == UA_AGGREGATE_SYNCHRONIZATION_CALLBACK_READ_WRITE){
                 internalNodeContext *nodeIdContext = (internalNodeContext *) UA_calloc(1, sizeof(internalNodeContext));

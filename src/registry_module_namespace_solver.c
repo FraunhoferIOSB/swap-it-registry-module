@@ -227,7 +227,7 @@ static UA_StatusCode create_new_extension_object_array(UA_Server *server, UA_Var
 }
 
 /*todo clear memory of the extension objects*/
-UA_StatusCode write_variable_value(UA_Server *server, UA_Variant *content, UA_UInt16 namespaceindex, UA_NodeId newNode, UA_NodeId data_type_id){
+UA_StatusCode write_variable_value(UA_Server *server, UA_Client *client, UA_Variant *content, UA_UInt16 namespaceindex, UA_NodeId newNode, UA_NodeId data_type_id){
   UA_StatusCode retval;
   if(content->type == &UA_TYPES[UA_TYPES_EXTENSIONOBJECT]){
                 //the variant into which the decoded variable value will be stored
@@ -274,6 +274,17 @@ UA_StatusCode write_variable_value(UA_Server *server, UA_Variant *content, UA_UI
   }
   else{
                 //case no extensionobject
+                printf("case no extension object\n");
+                /*get the browsename of the data type from the client*/
+                UA_QualifiedName bn;
+                UA_QualifiedName_init(&bn);
+                UA_Client_readBrowseNameAttribute(client, content->type->typeId, &bn);
+
+                UA_String out = UA_STRING_NULL;
+                UA_print(&bn, &UA_TYPES[UA_TYPES_QUALIFIEDNAME], &out);
+                UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_USERLAND, "Value on underlying server changed! NodeId on server: %.*s", (int)out.length, out.data);
+                UA_String_clear(&out);
+                UA_QualifiedName_clear(&bn);
                 retval = UA_Server_writeValue(server, newNode, *content);
                 if(retval != UA_STATUSCODE_GOOD){
                     printf("cannot write the variable node with error %s\n", UA_StatusCode_name(retval));

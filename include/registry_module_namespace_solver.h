@@ -13,6 +13,7 @@
 #include <open62541/server.h>
 #include <open62541/client_highlevel.h>
 #include <stdio.h>
+#include <open62541/plugin/log_stdout.h>
 
 typedef struct{
     UA_Client *client;
@@ -40,7 +41,7 @@ typedef struct{
 }UA_getBrowseName;
 
 UA_StatusCode get_namespace(UA_Client *client, UA_Server *server, UA_NamespaceidxMapping *index_finder, UA_UInt16 *namespaceidx);
-UA_StatusCode write_variable_value(UA_Server *server, UA_Variant *content, UA_UInt16 namespaceindex, UA_NodeId newNode, UA_NodeId data_type_id);
+UA_StatusCode write_variable_value(UA_Server *server, UA_Client *client, UA_Variant *content, UA_UInt16 namespaceindex, UA_NodeId newNode, UA_NodeId data_type_id);
 UA_StatusCode get_ObjectType_NodeId(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, void *handle);
 UA_StatusCode get_namespace_idx_from_config_node(UA_NodeId childId, UA_Boolean isInverse, UA_NodeId referenceTypeId, void *handle);
 UA_UInt16 map_namespace_idx(UA_Server *server, UA_Client *client, UA_UInt16 currentIdentifier);
