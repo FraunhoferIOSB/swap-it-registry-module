@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 3.20.0)
 project(swap-it-registry-module)
 
-find_package(open62541 1.4 REQUIRED)
+find_package(open62541 1.4.6 REQUIRED)
 set(CMAKE_C_STANDARD 99)
 
 #set( CMAKE_C_FLAGS "-Wall -Werror -Wunused -O4 -fvisibility=hidden ${CMAKE_C_FLAGS}" )
@@ -59,29 +59,6 @@ ua_generate_nodeset_and_datatypes(
         FILE_BSD "${PATH_TO_INFORMATION_MODELS}/SWAP.Fraunhofer.Common.Model.Types.bsd"
         FILE_CSV "${PATH_TO_INFORMATION_MODELS}/CommonModelDesign.csv"
         FILE_NS "${PATH_TO_INFORMATION_MODELS}/SWAP.Fraunhofer.Common.Model.NodeSet2.xml"
-        OUTPUT_DIR ${GENERATE_OUTPUT_DIR}
-        INTERNAL
-)
-
-#generate c code from the pfdl types model
-ua_generate_nodeset_and_datatypes(
-        NAME "pfdl_parameter"
-        FILE_BSD "${INFORMATION_MODEL_DIR}/SWAP.Fraunhofer.Demo.Scenario.Model.Types.bsd"
-        FILE_CSV "${INFORMATION_MODEL_DIR}/DemoScenarioTypes.ModelDesign.csv"
-        FILE_NS "${INFORMATION_MODEL_DIR}/SWAP.Fraunhofer.Demo.Scenario.Model.NodeSet2.xml"
-        OUTPUT_DIR ${GENERATE_OUTPUT_DIR}
-        INTERNAL
-)
-#generate c code from the warehouse model and set the dependencies to the common and pfdl types models
-ua_generate_nodeset_and_datatypes(
-        NAME "warehouse"
-        DEPENDS "common"
-        DEPENDS "pfdl_parameter"
-        FILE_BSD "${INFORMATION_MODEL_DIR}/SWAP.Fraunhofer.Demo.Scenario.Warehouse.Model.Types.bsd"
-        FILE_CSV "${INFORMATION_MODEL_DIR}/DemoScenarioWarehouse.ModelDesign.csv"
-        FILE_NS "${INFORMATION_MODEL_DIR}/SWAP.Fraunhofer.Demo.Scenario.Warehouse.Model.NodeSet2.xml"
-        IMPORT_BSD "TYPES_COMMON#${PATH_TO_INFORMATION_MODELS}/SWAP.Fraunhofer.Common.Model.Types.bsd"
-        IMPORT_BSD "TYPES_PFDL_PARAMETER#${INFORMATION_MODEL_DIR}/SWAP.Fraunhofer.Demo.Scenario.Model.Types.bsd"
         OUTPUT_DIR ${GENERATE_OUTPUT_DIR}
         INTERNAL
 )
