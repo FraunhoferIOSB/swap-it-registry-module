@@ -8,16 +8,16 @@ Copyright 2023-2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
 -->
 
 <ModelDesign
-  xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:ua="http://opcfoundation.org/UA/"
-  xmlns:cmn="http://common.swap.fraunhofer.de"
-  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  TargetNamespace="http://common.swap.fraunhofer.de"
-  TargetXmlNamespace="http://common.swap.fraunhofer.de"
-  TargetVersion="1.00.0"
-  TargetPublicationDate="2024-01-01T00:00:00Z"
-  xmlns="http://opcfoundation.org/UA/ModelDesign.xsd">
+        xmlns:uax="http://opcfoundation.org/UA/2008/02/Types.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ua="http://opcfoundation.org/UA/"
+        xmlns:cmn="http://common.swap.fraunhofer.de"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        TargetNamespace="http://common.swap.fraunhofer.de"
+        TargetXmlNamespace="http://common.swap.fraunhofer.de"
+        TargetVersion="1.00.0"
+        TargetPublicationDate="2024-01-01T00:00:00Z"
+        xmlns="http://opcfoundation.org/UA/ModelDesign.xsd">
 
   <Namespaces>
     <Namespace Name="Common" Prefix="SWAP.Fraunhofer.Common.Model" XmlNamespace="http://common.swap.fraunhofer.de/Types.xsd" XmlPrefix="cmn">http://common.swap.fraunhofer.de</Namespace>
@@ -160,13 +160,36 @@ Copyright 2023-2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
     </Fields>
   </DataType>
 
+  <DataType SymbolicName="cmn:Move_Queue_Data_Type" BaseType="ua:Structure">
+    <Fields>
+      <Field Name="service_uuid" DataType="ua:String"/>
+      <Field Name="orderId" DataType="ua:String"/>
+      <Field Name="NewPosition" DataType="ua:Int32"/>
+    </Fields>
+  </DataType>
+
+  <DataType SymbolicName="cmn:Set_Queue_Element_State_Data_Type" BaseType="ua:Structure">
+    <Fields>
+      <Field Name="service_uuid" DataType="ua:String"/>
+      <Field Name="orderId" DataType="ua:String"/>
+      <Field Name="NewState" DataType="cmn:Queue_State_Variable_Type"/>
+    </Fields>
+  </DataType>
+
+  <DataType SymbolicName="cmn:Change_Queue_Data_Type" BaseType="ua:Structure">
+    <Fields>
+      <Field Name="OrderId" DataType="ua:String"/>
+      <Field Name="PrioritizationValue" DataType="ua:Int32"/>
+    </Fields>
+  </DataType>
+
   <DataType SymbolicName="cmn:Queue_Data_Type" BaseType="ua:Structure">
     <Fields>
       <Field Name="Client_Identifier" DataType="ua:String"/>
       <Field Name="Service_UUID" DataType="ua:String"/>
       <Field Name="Entry_Number" DataType="ua:Int16"/>
       <Field Name="Queue_Element_State" DataType="cmn:Queue_State_Variable_Type"/>
-      <Field Name="ProductId" DataType="ua:String"/>
+      <Field Name="OrderId" DataType="ua:String"/>
       <Field Name="ServiceParameter" DataType="ua:DataValue" ValueRank="Array"/>
     </Fields>
   </DataType>
@@ -202,14 +225,13 @@ Copyright 2023-2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
   <!-- ObjectTypes -->
   <ObjectType SymbolicName="cmn:QueueObjectType" BaseType="ua:BaseObjectType">
     <Children>
-      <Variable SymbolicName="cmn:queue_variable" DataType="cmn:Queue_Data_Type" AccessLevel="ReadWrite"/>
+      <Variable SymbolicName="cmn:queue_variable" DataType="cmn:Queue_Data_Type" AccessLevel="Read"/>
       <!--Variable SymbolicName="cmn:service_name" DataType="ua:String"/-->
-      <Method SymbolicName="cmn:add_queue_element" TypeDefinition="cmn:AddToQueueMethodType">
-      </Method>
-      <Method SymbolicName="cmn:remove_queue_element" TypeDefinition="cmn:RemoveFromQueueMethodType">
-      </Method>
-      <!--Method SymbolicName="cmn:set_queue_element_state" TypeDefinition="cmn:SetStateMethodType">
-      </Method-->
+      <Method SymbolicName="cmn:add_queue_element" TypeDefinition="cmn:AddToQueueMethodType"/>
+      <Method SymbolicName="cmn:remove_queue_element" TypeDefinition="cmn:RemoveFromQueueMethodType"/>
+      <Method SymbolicName="cmn:sort_queue_elements" TypeDefinition="cmn:SortQueueElementsMethodType"/>
+      <Method SymbolicName="cmn:move_queue_element" TypeDefinition="cmn:MoveQueueElementsMethodType"/>
+      <Method SymbolicName="cmn:set_queue_element_state" TypeDefinition="cmn:SetStateMethodType"/>
     </Children>
   </ObjectType>
 
@@ -302,13 +324,26 @@ Copyright 2023-2024 (c) Fraunhofer IOSB (Author: Florian Düwel)
     </InputArguments>
   </Method>
 
-  <Method SymbolicName="cmn:SetStateMethodType">
+  <Method SymbolicName="cmn:SortQueueElementsMethodType">
     <InputArguments>
-      <Argument Name="service_uuid" DataType="ua:String" ModellingRule="Mandatory"/>
-      <Argument Name="client_uuid" DataType="ua:String" ModellingRule="Mandatory"/>
-      <Argument Name="next_state" DataType="cmn:Queue_State_Variable_Type" ModellingRule="Mandatory"/>
+      <Argument Name="priority_list" DataType="cmn:Change_Queue_Data_Type" ModellingRule="Mandatory" ValueRank="Array">
+        <Descriptions>List, where each element contains an Int32 Prioritization value, as well as a String OrderId, which is compared to the Queue_Data_Type's OrderId</Descriptions>
+      </Argument>
     </InputArguments>
   </Method>
 
+  <Method SymbolicName="cmn:MoveQueueElementsMethodType">
+    <InputArguments>
+      <Argument Name="element" DataType="cmn:Move_Queue_Data_Type" ModellingRule="Mandatory" ValueRank="Scalar">
+        <Descriptions>Element, where the </Descriptions>
+      </Argument>
+    </InputArguments>
+  </Method>
+
+  <Method SymbolicName="cmn:SetStateMethodType">
+    <InputArguments>
+      <Argument Name="service_uuid" DataType="cmn:Set_Queue_Element_State_Data_Type" ModellingRule="Mandatory"/>
+    </InputArguments>
+  </Method>
 
 </ModelDesign>

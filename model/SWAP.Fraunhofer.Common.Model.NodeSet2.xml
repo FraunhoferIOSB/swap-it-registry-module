@@ -465,6 +465,38 @@
       <Field Name="Value" DataType="i=12" />
     </Definition>
   </UADataType>
+  <UADataType NodeId="ns=1;i=15199" BrowseName="1:Move_Queue_Data_Type">
+    <DisplayName>Move_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Move_Queue_Data_Type">
+      <Field Name="service_uuid" DataType="i=12" />
+      <Field Name="orderId" DataType="i=12" />
+      <Field Name="NewPosition" DataType="i=6" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15200" BrowseName="1:Set_Queue_Element_State_Data_Type">
+    <DisplayName>Set_Queue_Element_State_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Set_Queue_Element_State_Data_Type">
+      <Field Name="service_uuid" DataType="i=12" />
+      <Field Name="orderId" DataType="i=12" />
+      <Field Name="NewState" DataType="ns=1;i=15040" />
+    </Definition>
+  </UADataType>
+  <UADataType NodeId="ns=1;i=15201" BrowseName="1:Change_Queue_Data_Type">
+    <DisplayName>Change_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasSubtype" IsForward="false">i=22</Reference>
+    </References>
+    <Definition Name="1:Change_Queue_Data_Type">
+      <Field Name="OrderId" DataType="i=12" />
+      <Field Name="PrioritizationValue" DataType="i=6" />
+    </Definition>
+  </UADataType>
   <UADataType NodeId="ns=1;i=15051" BrowseName="1:Queue_Data_Type">
     <DisplayName>Queue_Data_Type</DisplayName>
     <References>
@@ -475,7 +507,7 @@
       <Field Name="Service_UUID" DataType="i=12" />
       <Field Name="Entry_Number" DataType="i=4" />
       <Field Name="Queue_Element_State" DataType="ns=1;i=15040" />
-      <Field Name="ProductId" DataType="i=12" />
+      <Field Name="OrderId" DataType="i=12" />
       <Field Name="ServiceParameter" DataType="i=23" ValueRank="1" />
     </Definition>
   </UADataType>
@@ -541,10 +573,13 @@
       <Reference ReferenceType="HasComponent">ns=1;i=15068</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15069</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15071</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15202</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15204</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15206</Reference>
       <Reference ReferenceType="HasSubtype" IsForward="false">i=58</Reference>
     </References>
   </UAObjectType>
-  <UAVariable NodeId="ns=1;i=15068" BrowseName="1:queue_variable" ParentNodeId="ns=1;i=15067" DataType="ns=1;i=15051" AccessLevel="3">
+  <UAVariable NodeId="ns=1;i=15068" BrowseName="1:queue_variable" ParentNodeId="ns=1;i=15067" DataType="ns=1;i=15051">
     <DisplayName>queue_variable</DisplayName>
     <References>
       <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
@@ -613,6 +648,113 @@
               <Name>remove_element</Name>
               <DataType>
                 <Identifier>ns=1;i=15051</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15202" BrowseName="1:sort_queue_elements" ParentNodeId="ns=1;i=15067">
+    <DisplayName>sort_queue_elements</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15203</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15067</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15203" BrowseName="InputArguments" ParentNodeId="ns=1;i=15202" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15202</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>priority_list</Name>
+              <DataType>
+                <Identifier>ns=1;i=15201</Identifier>
+              </DataType>
+              <ValueRank>1</ValueRank>
+              <ArrayDimensions>
+                <UInt32>0</UInt32>
+              </ArrayDimensions>
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15204" BrowseName="1:move_queue_element" ParentNodeId="ns=1;i=15067">
+    <DisplayName>move_queue_element</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15205</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15067</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15205" BrowseName="InputArguments" ParentNodeId="ns=1;i=15204" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15204</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>element</Name>
+              <DataType>
+                <Identifier>ns=1;i=15199</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15206" BrowseName="1:set_queue_element_state" ParentNodeId="ns=1;i=15067">
+    <DisplayName>set_queue_element_state</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15207</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15067</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15207" BrowseName="InputArguments" ParentNodeId="ns=1;i=15206" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15206</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>service_uuid</Name>
+              <DataType>
+                <Identifier>ns=1;i=15200</Identifier>
               </DataType>
               <ValueRank>-1</ValueRank>
               <ArrayDimensions />
@@ -863,12 +1005,15 @@
       <Reference ReferenceType="HasComponent">ns=1;i=15093</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15094</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15096</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15208</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15210</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15212</Reference>
       <Reference ReferenceType="HasTypeDefinition">ns=1;i=15067</Reference>
       <Reference ReferenceType="HasModellingRule">i=78</Reference>
       <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15091</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=15093" BrowseName="1:queue_variable" ParentNodeId="ns=1;i=15092" DataType="ns=1;i=15051" AccessLevel="3">
+  <UAVariable NodeId="ns=1;i=15093" BrowseName="1:queue_variable" ParentNodeId="ns=1;i=15092" DataType="ns=1;i=15051">
     <DisplayName>queue_variable</DisplayName>
     <References>
       <Reference ReferenceType="HasTypeDefinition">i=63</Reference>
@@ -937,6 +1082,113 @@
               <Name>remove_element</Name>
               <DataType>
                 <Identifier>ns=1;i=15051</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15208" BrowseName="1:sort_queue_elements" ParentNodeId="ns=1;i=15092" MethodDeclarationId="ns=1;i=15202">
+    <DisplayName>sort_queue_elements</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15209</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15092</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15209" BrowseName="InputArguments" ParentNodeId="ns=1;i=15208" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15208</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>priority_list</Name>
+              <DataType>
+                <Identifier>ns=1;i=15201</Identifier>
+              </DataType>
+              <ValueRank>1</ValueRank>
+              <ArrayDimensions>
+                <UInt32>0</UInt32>
+              </ArrayDimensions>
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15210" BrowseName="1:move_queue_element" ParentNodeId="ns=1;i=15092" MethodDeclarationId="ns=1;i=15204">
+    <DisplayName>move_queue_element</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15211</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15092</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15211" BrowseName="InputArguments" ParentNodeId="ns=1;i=15210" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15210</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>element</Name>
+              <DataType>
+                <Identifier>ns=1;i=15199</Identifier>
+              </DataType>
+              <ValueRank>-1</ValueRank>
+              <ArrayDimensions />
+            </Argument>
+          </Body>
+        </ExtensionObject>
+      </ListOfExtensionObject>
+    </Value>
+  </UAVariable>
+  <UAMethod NodeId="ns=1;i=15212" BrowseName="1:set_queue_element_state" ParentNodeId="ns=1;i=15092" MethodDeclarationId="ns=1;i=15206">
+    <DisplayName>set_queue_element_state</DisplayName>
+    <References>
+      <Reference ReferenceType="HasProperty">ns=1;i=15213</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15092</Reference>
+    </References>
+  </UAMethod>
+  <UAVariable NodeId="ns=1;i=15213" BrowseName="InputArguments" ParentNodeId="ns=1;i=15212" DataType="i=296" ValueRank="1" ArrayDimensions="0">
+    <DisplayName>InputArguments</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=68</Reference>
+      <Reference ReferenceType="HasModellingRule">i=78</Reference>
+      <Reference ReferenceType="HasProperty" IsForward="false">ns=1;i=15212</Reference>
+    </References>
+    <Value>
+      <ListOfExtensionObject xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">
+        <ExtensionObject>
+          <TypeId>
+            <Identifier>i=297</Identifier>
+          </TypeId>
+          <Body>
+            <Argument>
+              <Name>service_uuid</Name>
+              <DataType>
+                <Identifier>ns=1;i=15200</Identifier>
               </DataType>
               <ValueRank>-1</ValueRank>
               <ArrayDimensions />
@@ -1148,6 +1400,30 @@
       <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
     </References>
   </UAObject>
+  <UAObject NodeId="ns=1;i=15218" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15199</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15221</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15219" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15200</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15224</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15220" BrowseName="Default Binary" SymbolicName="DefaultBinary">
+    <DisplayName>Default Binary</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15201</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15227</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
   <UAObject NodeId="ns=1;i=15124" BrowseName="Default Binary" SymbolicName="DefaultBinary">
     <DisplayName>Default Binary</DisplayName>
     <References>
@@ -1182,6 +1458,9 @@
       <Reference ReferenceType="HasComponent">ns=1;i=15137</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15140</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15143</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15221</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15224</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15227</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15146</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15149</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15152</Reference>
@@ -1254,31 +1533,46 @@ czpDYXBhYmlsaXR5X1N0cnVjdF9EYXRhX1R5cGUiPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iUmVs
 YXRpb25hbF9PcGVyYXRvciIgVHlwZU5hbWU9InRuczpPcGVyYXRvcl9UeXBlIiBTb3VyY2VUeXBl
 PSJ0bnM6Q2FwYWJpbGl0eV9TdHJ1Y3RfRGF0YV9UeXBlIiAvPg0KICAgIDxvcGM6RmllbGQgTmFt
 ZT0iVmFsdWUiIFR5cGVOYW1lPSJvcGM6U3RyaW5nIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlw
-ZT4NCg0KICA8b3BjOlN0cnVjdHVyZWRUeXBlIE5hbWU9IlF1ZXVlX0RhdGFfVHlwZSIgQmFzZVR5
-cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJDbGllbnRfSWRl
-bnRpZmllciIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJT
-ZXJ2aWNlX1VVSUQiIFR5cGVOYW1lPSJvcGM6U3RyaW5nIiAvPg0KICAgIDxvcGM6RmllbGQgTmFt
-ZT0iRW50cnlfTnVtYmVyIiBUeXBlTmFtZT0ib3BjOkludDE2IiAvPg0KICAgIDxvcGM6RmllbGQg
-TmFtZT0iUXVldWVfRWxlbWVudF9TdGF0ZSIgVHlwZU5hbWU9InRuczpRdWV1ZV9TdGF0ZV9WYXJp
-YWJsZV9UeXBlIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iUHJvZHVjdElkIiBUeXBlTmFtZT0i
-b3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9Ik5vT2ZTZXJ2aWNlUGFyYW1ldGVy
-IiBUeXBlTmFtZT0ib3BjOkludDMyIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iU2VydmljZVBh
-cmFtZXRlciIgVHlwZU5hbWU9InVhOkRhdGFWYWx1ZSIgTGVuZ3RoRmllbGQ9Ik5vT2ZTZXJ2aWNl
-UGFyYW1ldGVyIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlwZT4NCg0KICA8b3BjOlN0cnVjdHVy
-ZWRUeXBlIE5hbWU9IlNlcnZpY2VFeGVjdXRpb25Bc3luY1Jlc3VsdERhdGFUeXBlIiBCYXNlVHlw
-ZT0idWE6RXh0ZW5zaW9uT2JqZWN0Ij4NCiAgICA8b3BjOkZpZWxkIE5hbWU9IlNlcnZpY2VSZXN1
-bHRNZXNzYWdlIiBUeXBlTmFtZT0ib3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9
-IlNlcnZpY2VSZXN1bHRDb2RlIiBUeXBlTmFtZT0ib3BjOkludDMyIiAvPg0KICAgIDxvcGM6Rmll
-bGQgTmFtZT0iRXhwZWN0ZWRTZXJ2aWNlRXhlY3V0aW9uRHVyYXRpb24iIFR5cGVOYW1lPSJvcGM6
-RG91YmxlIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iU2VydmljZVRyaWdnZXJSZXN1bHQiIFR5
-cGVOYW1lPSJ0bnM6U2VydmljZVRyaWdnZXJSZXN1bHQiIC8+DQogIDwvb3BjOlN0cnVjdHVyZWRU
-eXBlPg0KDQogIDxvcGM6U3RydWN0dXJlZFR5cGUgTmFtZT0iU2VydmljZUV4ZWN1dGlvblN5bmNS
-ZXN1bHREYXRhVHlwZSIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpG
-aWVsZCBOYW1lPSJTZXJ2aWNlUmVzdWx0TWVzc2FnZSIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+
-DQogICAgPG9wYzpGaWVsZCBOYW1lPSJTZXJ2aWNlUmVzdWx0Q29kZSIgVHlwZU5hbWU9Im9wYzpJ
-bnQzMiIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9IlNlcnZpY2VFeGVjdXRpb25TdGF0dXMiIFR5
-cGVOYW1lPSJ0bnM6U2VydmljZUV4ZWN1dGlvblN0YXR1cyIgLz4NCiAgPC9vcGM6U3RydWN0dXJl
-ZFR5cGU+DQoNCjwvb3BjOlR5cGVEaWN0aW9uYXJ5Pg==</ByteString>
+ZT4NCg0KICA8b3BjOlN0cnVjdHVyZWRUeXBlIE5hbWU9Ik1vdmVfUXVldWVfRGF0YV9UeXBlIiBC
+YXNlVHlwZT0idWE6RXh0ZW5zaW9uT2JqZWN0Ij4NCiAgICA8b3BjOkZpZWxkIE5hbWU9InNlcnZp
+Y2VfdXVpZCIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJv
+cmRlcklkIiBUeXBlTmFtZT0ib3BjOlN0cmluZyIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9Ik5l
+d1Bvc2l0aW9uIiBUeXBlTmFtZT0ib3BjOkludDMyIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlw
+ZT4NCg0KICA8b3BjOlN0cnVjdHVyZWRUeXBlIE5hbWU9IlNldF9RdWV1ZV9FbGVtZW50X1N0YXRl
+X0RhdGFfVHlwZSIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+DQogICAgPG9wYzpGaWVs
+ZCBOYW1lPSJzZXJ2aWNlX3V1aWQiIFR5cGVOYW1lPSJvcGM6U3RyaW5nIiAvPg0KICAgIDxvcGM6
+RmllbGQgTmFtZT0ib3JkZXJJZCIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogICAgPG9wYzpG
+aWVsZCBOYW1lPSJOZXdTdGF0ZSIgVHlwZU5hbWU9InRuczpRdWV1ZV9TdGF0ZV9WYXJpYWJsZV9U
+eXBlIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlwZT4NCg0KICA8b3BjOlN0cnVjdHVyZWRUeXBl
+IE5hbWU9IkNoYW5nZV9RdWV1ZV9EYXRhX1R5cGUiIEJhc2VUeXBlPSJ1YTpFeHRlbnNpb25PYmpl
+Y3QiPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iT3JkZXJJZCIgVHlwZU5hbWU9Im9wYzpTdHJpbmci
+IC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJQcmlvcml0aXphdGlvblZhbHVlIiBUeXBlTmFtZT0i
+b3BjOkludDMyIiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlwZT4NCg0KICA8b3BjOlN0cnVjdHVy
+ZWRUeXBlIE5hbWU9IlF1ZXVlX0RhdGFfVHlwZSIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVj
+dCI+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJDbGllbnRfSWRlbnRpZmllciIgVHlwZU5hbWU9Im9w
+YzpTdHJpbmciIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJTZXJ2aWNlX1VVSUQiIFR5cGVOYW1l
+PSJvcGM6U3RyaW5nIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iRW50cnlfTnVtYmVyIiBUeXBl
+TmFtZT0ib3BjOkludDE2IiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iUXVldWVfRWxlbWVudF9T
+dGF0ZSIgVHlwZU5hbWU9InRuczpRdWV1ZV9TdGF0ZV9WYXJpYWJsZV9UeXBlIiAvPg0KICAgIDxv
+cGM6RmllbGQgTmFtZT0iT3JkZXJJZCIgVHlwZU5hbWU9Im9wYzpTdHJpbmciIC8+DQogICAgPG9w
+YzpGaWVsZCBOYW1lPSJOb09mU2VydmljZVBhcmFtZXRlciIgVHlwZU5hbWU9Im9wYzpJbnQzMiIg
+Lz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9IlNlcnZpY2VQYXJhbWV0ZXIiIFR5cGVOYW1lPSJ1YTpE
+YXRhVmFsdWUiIExlbmd0aEZpZWxkPSJOb09mU2VydmljZVBhcmFtZXRlciIgLz4NCiAgPC9vcGM6
+U3RydWN0dXJlZFR5cGU+DQoNCiAgPG9wYzpTdHJ1Y3R1cmVkVHlwZSBOYW1lPSJTZXJ2aWNlRXhl
+Y3V0aW9uQXN5bmNSZXN1bHREYXRhVHlwZSIgQmFzZVR5cGU9InVhOkV4dGVuc2lvbk9iamVjdCI+
+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJTZXJ2aWNlUmVzdWx0TWVzc2FnZSIgVHlwZU5hbWU9Im9w
+YzpTdHJpbmciIC8+DQogICAgPG9wYzpGaWVsZCBOYW1lPSJTZXJ2aWNlUmVzdWx0Q29kZSIgVHlw
+ZU5hbWU9Im9wYzpJbnQzMiIgLz4NCiAgICA8b3BjOkZpZWxkIE5hbWU9IkV4cGVjdGVkU2Vydmlj
+ZUV4ZWN1dGlvbkR1cmF0aW9uIiBUeXBlTmFtZT0ib3BjOkRvdWJsZSIgLz4NCiAgICA8b3BjOkZp
+ZWxkIE5hbWU9IlNlcnZpY2VUcmlnZ2VyUmVzdWx0IiBUeXBlTmFtZT0idG5zOlNlcnZpY2VUcmln
+Z2VyUmVzdWx0IiAvPg0KICA8L29wYzpTdHJ1Y3R1cmVkVHlwZT4NCg0KICA8b3BjOlN0cnVjdHVy
+ZWRUeXBlIE5hbWU9IlNlcnZpY2VFeGVjdXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiIEJhc2VUeXBl
+PSJ1YTpFeHRlbnNpb25PYmplY3QiPg0KICAgIDxvcGM6RmllbGQgTmFtZT0iU2VydmljZVJlc3Vs
+dE1lc3NhZ2UiIFR5cGVOYW1lPSJvcGM6U3RyaW5nIiAvPg0KICAgIDxvcGM6RmllbGQgTmFtZT0i
+U2VydmljZVJlc3VsdENvZGUiIFR5cGVOYW1lPSJvcGM6SW50MzIiIC8+DQogICAgPG9wYzpGaWVs
+ZCBOYW1lPSJTZXJ2aWNlRXhlY3V0aW9uU3RhdHVzIiBUeXBlTmFtZT0idG5zOlNlcnZpY2VFeGVj
+dXRpb25TdGF0dXMiIC8+DQogIDwvb3BjOlN0cnVjdHVyZWRUeXBlPg0KDQo8L29wYzpUeXBlRGlj
+dGlvbmFyeT4=</ByteString>
     </Value>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=15129" BrowseName="NamespaceUri" ParentNodeId="ns=1;i=15127" DataType="String">
@@ -1351,6 +1645,36 @@ ZFR5cGU+DQoNCjwvb3BjOlR5cGVEaWN0aW9uYXJ5Pg==</ByteString>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Capability_Struct_String</String>
     </Value>
   </UAVariable>
+  <UAVariable NodeId="ns=1;i=15221" BrowseName="1:Move_Queue_Data_Type" ParentNodeId="ns=1;i=15127" DataType="String">
+    <DisplayName>Move_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15127</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Move_Queue_Data_Type</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15224" BrowseName="1:Set_Queue_Element_State_Data_Type" ParentNodeId="ns=1;i=15127" DataType="String">
+    <DisplayName>Set_Queue_Element_State_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15127</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Set_Queue_Element_State_Data_Type</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15227" BrowseName="1:Change_Queue_Data_Type" ParentNodeId="ns=1;i=15127" DataType="String">
+    <DisplayName>Change_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15127</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Change_Queue_Data_Type</String>
+    </Value>
+  </UAVariable>
   <UAVariable NodeId="ns=1;i=15146" BrowseName="1:Queue_Data_Type" ParentNodeId="ns=1;i=15127" DataType="String">
     <DisplayName>Queue_Data_Type</DisplayName>
     <References>
@@ -1421,6 +1745,30 @@ ZFR5cGU+DQoNCjwvb3BjOlR5cGVEaWN0aW9uYXJ5Pg==</ByteString>
       <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
     </References>
   </UAObject>
+  <UAObject NodeId="ns=1;i=15230" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15199</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15233</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15231" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15200</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15236</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15232" BrowseName="Default XML" SymbolicName="DefaultXml">
+    <DisplayName>Default XML</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15201</Reference>
+      <Reference ReferenceType="HasDescription">ns=1;i=15239</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
   <UAObject NodeId="ns=1;i=15160" BrowseName="Default XML" SymbolicName="DefaultXml">
     <DisplayName>Default XML</DisplayName>
     <References>
@@ -1455,6 +1803,9 @@ ZFR5cGU+DQoNCjwvb3BjOlR5cGVEaWN0aW9uYXJ5Pg==</ByteString>
       <Reference ReferenceType="HasComponent">ns=1;i=15173</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15176</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15179</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15233</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15236</Reference>
+      <Reference ReferenceType="HasComponent">ns=1;i=15239</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15182</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15185</Reference>
       <Reference ReferenceType="HasComponent">ns=1;i=15188</Reference>
@@ -1614,60 +1965,103 @@ Y2N1cnM9IjAiIG1heE9jY3Vycz0idW5ib3VuZGVkIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAgICA8
 L3hzOnNlcXVlbmNlPg0KICA8L3hzOmNvbXBsZXhUeXBlPg0KICA8eHM6ZWxlbWVudCBuYW1lPSJM
 aXN0T2ZDYXBhYmlsaXR5X1N0cnVjdF9TdHJpbmciIHR5cGU9InRuczpMaXN0T2ZDYXBhYmlsaXR5
 X1N0cnVjdF9TdHJpbmciIG5pbGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+DQoNCiAgPHhzOmNv
-bXBsZXhUeXBlIG5hbWU9IlF1ZXVlX0RhdGFfVHlwZSI+DQogICAgPHhzOnNlcXVlbmNlPg0KICAg
-ICAgPHhzOmVsZW1lbnQgbmFtZT0iQ2xpZW50X0lkZW50aWZpZXIiIHR5cGU9InhzOnN0cmluZyIg
+bXBsZXhUeXBlIG5hbWU9Ik1vdmVfUXVldWVfRGF0YV9UeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+
+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzZXJ2aWNlX3V1aWQiIHR5cGU9InhzOnN0cmluZyIg
 bWluT2NjdXJzPSIwIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9
-IlNlcnZpY2VfVVVJRCIgdHlwZT0ieHM6c3RyaW5nIiBtaW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0
-cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iRW50cnlfTnVtYmVyIiB0eXBlPSJ4czpz
-aG9ydCIgbWluT2NjdXJzPSIwIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iUXVldWVfRWxl
-bWVudF9TdGF0ZSIgdHlwZT0idG5zOlF1ZXVlX1N0YXRlX1ZhcmlhYmxlX1R5cGUiIG1pbk9jY3Vy
-cz0iMCIgLz4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9IlByb2R1Y3RJZCIgdHlwZT0ieHM6c3Ry
+Im9yZGVySWQiIHR5cGU9InhzOnN0cmluZyIgbWluT2NjdXJzPSIwIiBuaWxsYWJsZT0idHJ1ZSIg
+Lz4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9Ik5ld1Bvc2l0aW9uIiB0eXBlPSJ4czppbnQiIG1p
+bk9jY3Vycz0iMCIgLz4NCiAgICA8L3hzOnNlcXVlbmNlPg0KICA8L3hzOmNvbXBsZXhUeXBlPg0K
+ICA8eHM6ZWxlbWVudCBuYW1lPSJNb3ZlX1F1ZXVlX0RhdGFfVHlwZSIgdHlwZT0idG5zOk1vdmVf
+UXVldWVfRGF0YV9UeXBlIiAvPg0KDQogIDx4czpjb21wbGV4VHlwZSBuYW1lPSJMaXN0T2ZNb3Zl
+X1F1ZXVlX0RhdGFfVHlwZSI+DQogICAgPHhzOnNlcXVlbmNlPg0KICAgICAgPHhzOmVsZW1lbnQg
+bmFtZT0iTW92ZV9RdWV1ZV9EYXRhX1R5cGUiIHR5cGU9InRuczpNb3ZlX1F1ZXVlX0RhdGFfVHlw
+ZSIgbWluT2NjdXJzPSIwIiBtYXhPY2N1cnM9InVuYm91bmRlZCIgbmlsbGFibGU9InRydWUiIC8+
+DQogICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQg
+bmFtZT0iTGlzdE9mTW92ZV9RdWV1ZV9EYXRhX1R5cGUiIHR5cGU9InRuczpMaXN0T2ZNb3ZlX1F1
+ZXVlX0RhdGFfVHlwZSIgbmlsbGFibGU9InRydWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29t
+cGxleFR5cGUgbmFtZT0iU2V0X1F1ZXVlX0VsZW1lbnRfU3RhdGVfRGF0YV9UeXBlIj4NCiAgICA8
+eHM6c2VxdWVuY2U+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJzZXJ2aWNlX3V1aWQiIHR5cGU9
+InhzOnN0cmluZyIgbWluT2NjdXJzPSIwIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAgICAgIDx4czpl
+bGVtZW50IG5hbWU9Im9yZGVySWQiIHR5cGU9InhzOnN0cmluZyIgbWluT2NjdXJzPSIwIiBuaWxs
+YWJsZT0idHJ1ZSIgLz4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9Ik5ld1N0YXRlIiB0eXBlPSJ0
+bnM6UXVldWVfU3RhdGVfVmFyaWFibGVfVHlwZSIgbWluT2NjdXJzPSIwIiAvPg0KICAgIDwveHM6
+c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlNldF9R
+dWV1ZV9FbGVtZW50X1N0YXRlX0RhdGFfVHlwZSIgdHlwZT0idG5zOlNldF9RdWV1ZV9FbGVtZW50
+X1N0YXRlX0RhdGFfVHlwZSIgLz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iTGlzdE9mU2V0
+X1F1ZXVlX0VsZW1lbnRfU3RhdGVfRGF0YV9UeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAg
+ICA8eHM6ZWxlbWVudCBuYW1lPSJTZXRfUXVldWVfRWxlbWVudF9TdGF0ZV9EYXRhX1R5cGUiIHR5
+cGU9InRuczpTZXRfUXVldWVfRWxlbWVudF9TdGF0ZV9EYXRhX1R5cGUiIG1pbk9jY3Vycz0iMCIg
+bWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVu
+Y2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlNldF9R
+dWV1ZV9FbGVtZW50X1N0YXRlX0RhdGFfVHlwZSIgdHlwZT0idG5zOkxpc3RPZlNldF9RdWV1ZV9F
+bGVtZW50X1N0YXRlX0RhdGFfVHlwZSIgbmlsbGFibGU9InRydWUiPjwveHM6ZWxlbWVudD4NCg0K
+ICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iQ2hhbmdlX1F1ZXVlX0RhdGFfVHlwZSI+DQogICAgPHhz
+OnNlcXVlbmNlPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iT3JkZXJJZCIgdHlwZT0ieHM6c3Ry
 aW5nIiBtaW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQg
-bmFtZT0iU2VydmljZVBhcmFtZXRlciIgdHlwZT0idWE6TGlzdE9mRGF0YVZhbHVlIiBtaW5PY2N1
-cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29t
-cGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlF1ZXVlX0RhdGFfVHlwZSIgdHlwZT0idG5z
-OlF1ZXVlX0RhdGFfVHlwZSIgLz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iTGlzdE9mUXVl
-dWVfRGF0YV9UeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAgICA8eHM6ZWxlbWVudCBuYW1l
-PSJRdWV1ZV9EYXRhX1R5cGUiIHR5cGU9InRuczpRdWV1ZV9EYXRhX1R5cGUiIG1pbk9jY3Vycz0i
-MCIgbWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2Vx
-dWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlF1
-ZXVlX0RhdGFfVHlwZSIgdHlwZT0idG5zOkxpc3RPZlF1ZXVlX0RhdGFfVHlwZSIgbmlsbGFibGU9
-InRydWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iU2VydmljZUV4
-ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4
-czplbGVtZW50IG5hbWU9IlNlcnZpY2VSZXN1bHRNZXNzYWdlIiB0eXBlPSJ4czpzdHJpbmciIG1p
-bk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJT
-ZXJ2aWNlUmVzdWx0Q29kZSIgdHlwZT0ieHM6aW50IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8
-eHM6ZWxlbWVudCBuYW1lPSJFeHBlY3RlZFNlcnZpY2VFeGVjdXRpb25EdXJhdGlvbiIgdHlwZT0i
-eHM6ZG91YmxlIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2
-aWNlVHJpZ2dlclJlc3VsdCIgdHlwZT0idG5zOlNlcnZpY2VUcmlnZ2VyUmVzdWx0IiBtaW5PY2N1
-cnM9IjAiIC8+DQogICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhz
-OmVsZW1lbnQgbmFtZT0iU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiIHR5cGU9
-InRuczpTZXJ2aWNlRXhlY3V0aW9uQXN5bmNSZXN1bHREYXRhVHlwZSIgLz4NCg0KICA8eHM6Y29t
-cGxleFR5cGUgbmFtZT0iTGlzdE9mU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUi
-Pg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VFeGVj
-dXRpb25Bc3luY1Jlc3VsdERhdGFUeXBlIiB0eXBlPSJ0bnM6U2VydmljZUV4ZWN1dGlvbkFzeW5j
-UmVzdWx0RGF0YVR5cGUiIG1pbk9jY3Vycz0iMCIgbWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxh
-YmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQog
-IDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlNlcnZpY2VFeGVjdXRpb25Bc3luY1Jlc3VsdERhdGFU
-eXBlIiB0eXBlPSJ0bnM6TGlzdE9mU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUi
-IG5pbGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+DQoNCiAgPHhzOmNvbXBsZXhUeXBlIG5hbWU9
-IlNlcnZpY2VFeGVjdXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiPg0KICAgIDx4czpzZXF1ZW5jZT4N
-CiAgICAgIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VSZXN1bHRNZXNzYWdlIiB0eXBlPSJ4czpz
-dHJpbmciIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgICA8eHM6ZWxlbWVu
-dCBuYW1lPSJTZXJ2aWNlUmVzdWx0Q29kZSIgdHlwZT0ieHM6aW50IiBtaW5PY2N1cnM9IjAiIC8+
-DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2aWNlRXhlY3V0aW9uU3RhdHVzIiB0eXBlPSJ0
-bnM6U2VydmljZUV4ZWN1dGlvblN0YXR1cyIgbWluT2NjdXJzPSIwIiAvPg0KICAgIDwveHM6c2Vx
-dWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VF
-eGVjdXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiIHR5cGU9InRuczpTZXJ2aWNlRXhlY3V0aW9uU3lu
-Y1Jlc3VsdERhdGFUeXBlIiAvPg0KDQogIDx4czpjb21wbGV4VHlwZSBuYW1lPSJMaXN0T2ZTZXJ2
-aWNlRXhlY3V0aW9uU3luY1Jlc3VsdERhdGFUeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAg
-ICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2aWNlRXhlY3V0aW9uU3luY1Jlc3VsdERhdGFUeXBlIiB0
-eXBlPSJ0bnM6U2VydmljZUV4ZWN1dGlvblN5bmNSZXN1bHREYXRhVHlwZSIgbWluT2NjdXJzPSIw
-IiBtYXhPY2N1cnM9InVuYm91bmRlZCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgPC94czpzZXF1
-ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQgbmFtZT0iTGlzdE9mU2Vy
-dmljZUV4ZWN1dGlvblN5bmNSZXN1bHREYXRhVHlwZSIgdHlwZT0idG5zOkxpc3RPZlNlcnZpY2VF
-eGVjdXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiIG5pbGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+
-DQoNCjwveHM6c2NoZW1hPg==</ByteString>
+bmFtZT0iUHJpb3JpdGl6YXRpb25WYWx1ZSIgdHlwZT0ieHM6aW50IiBtaW5PY2N1cnM9IjAiIC8+
+DQogICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQg
+bmFtZT0iQ2hhbmdlX1F1ZXVlX0RhdGFfVHlwZSIgdHlwZT0idG5zOkNoYW5nZV9RdWV1ZV9EYXRh
+X1R5cGUiIC8+DQoNCiAgPHhzOmNvbXBsZXhUeXBlIG5hbWU9Ikxpc3RPZkNoYW5nZV9RdWV1ZV9E
+YXRhX1R5cGUiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9IkNo
+YW5nZV9RdWV1ZV9EYXRhX1R5cGUiIHR5cGU9InRuczpDaGFuZ2VfUXVldWVfRGF0YV9UeXBlIiBt
+aW5PY2N1cnM9IjAiIG1heE9jY3Vycz0idW5ib3VuZGVkIiBuaWxsYWJsZT0idHJ1ZSIgLz4NCiAg
+ICA8L3hzOnNlcXVlbmNlPg0KICA8L3hzOmNvbXBsZXhUeXBlPg0KICA8eHM6ZWxlbWVudCBuYW1l
+PSJMaXN0T2ZDaGFuZ2VfUXVldWVfRGF0YV9UeXBlIiB0eXBlPSJ0bnM6TGlzdE9mQ2hhbmdlX1F1
+ZXVlX0RhdGFfVHlwZSIgbmlsbGFibGU9InRydWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29t
+cGxleFR5cGUgbmFtZT0iUXVldWVfRGF0YV9UeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAg
+ICA8eHM6ZWxlbWVudCBuYW1lPSJDbGllbnRfSWRlbnRpZmllciIgdHlwZT0ieHM6c3RyaW5nIiBt
+aW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0i
+U2VydmljZV9VVUlEIiB0eXBlPSJ4czpzdHJpbmciIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRy
+dWUiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJFbnRyeV9OdW1iZXIiIHR5cGU9InhzOnNo
+b3J0IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJRdWV1ZV9FbGVt
+ZW50X1N0YXRlIiB0eXBlPSJ0bnM6UXVldWVfU3RhdGVfVmFyaWFibGVfVHlwZSIgbWluT2NjdXJz
+PSIwIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFtZT0iT3JkZXJJZCIgdHlwZT0ieHM6c3RyaW5n
+IiBtaW5PY2N1cnM9IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgICAgPHhzOmVsZW1lbnQgbmFt
+ZT0iU2VydmljZVBhcmFtZXRlciIgdHlwZT0idWE6TGlzdE9mRGF0YVZhbHVlIiBtaW5PY2N1cnM9
+IjAiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29tcGxl
+eFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlF1ZXVlX0RhdGFfVHlwZSIgdHlwZT0idG5zOlF1
+ZXVlX0RhdGFfVHlwZSIgLz4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iTGlzdE9mUXVldWVf
+RGF0YV9UeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJR
+dWV1ZV9EYXRhX1R5cGUiIHR5cGU9InRuczpRdWV1ZV9EYXRhX1R5cGUiIG1pbk9jY3Vycz0iMCIg
+bWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxhYmxlPSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVu
+Y2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9Ikxpc3RPZlF1ZXVl
+X0RhdGFfVHlwZSIgdHlwZT0idG5zOkxpc3RPZlF1ZXVlX0RhdGFfVHlwZSIgbmlsbGFibGU9InRy
+dWUiPjwveHM6ZWxlbWVudD4NCg0KICA8eHM6Y29tcGxleFR5cGUgbmFtZT0iU2VydmljZUV4ZWN1
+dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czpl
+bGVtZW50IG5hbWU9IlNlcnZpY2VSZXN1bHRNZXNzYWdlIiB0eXBlPSJ4czpzdHJpbmciIG1pbk9j
+Y3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2
+aWNlUmVzdWx0Q29kZSIgdHlwZT0ieHM6aW50IiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8eHM6
+ZWxlbWVudCBuYW1lPSJFeHBlY3RlZFNlcnZpY2VFeGVjdXRpb25EdXJhdGlvbiIgdHlwZT0ieHM6
+ZG91YmxlIiBtaW5PY2N1cnM9IjAiIC8+DQogICAgICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2aWNl
+VHJpZ2dlclJlc3VsdCIgdHlwZT0idG5zOlNlcnZpY2VUcmlnZ2VyUmVzdWx0IiBtaW5PY2N1cnM9
+IjAiIC8+DQogICAgPC94czpzZXF1ZW5jZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVs
+ZW1lbnQgbmFtZT0iU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiIHR5cGU9InRu
+czpTZXJ2aWNlRXhlY3V0aW9uQXN5bmNSZXN1bHREYXRhVHlwZSIgLz4NCg0KICA8eHM6Y29tcGxl
+eFR5cGUgbmFtZT0iTGlzdE9mU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiPg0K
+ICAgIDx4czpzZXF1ZW5jZT4NCiAgICAgIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VFeGVjdXRp
+b25Bc3luY1Jlc3VsdERhdGFUeXBlIiB0eXBlPSJ0bnM6U2VydmljZUV4ZWN1dGlvbkFzeW5jUmVz
+dWx0RGF0YVR5cGUiIG1pbk9jY3Vycz0iMCIgbWF4T2NjdXJzPSJ1bmJvdW5kZWQiIG5pbGxhYmxl
+PSJ0cnVlIiAvPg0KICAgIDwveHM6c2VxdWVuY2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4
+czplbGVtZW50IG5hbWU9Ikxpc3RPZlNlcnZpY2VFeGVjdXRpb25Bc3luY1Jlc3VsdERhdGFUeXBl
+IiB0eXBlPSJ0bnM6TGlzdE9mU2VydmljZUV4ZWN1dGlvbkFzeW5jUmVzdWx0RGF0YVR5cGUiIG5p
+bGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+DQoNCiAgPHhzOmNvbXBsZXhUeXBlIG5hbWU9IlNl
+cnZpY2VFeGVjdXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiPg0KICAgIDx4czpzZXF1ZW5jZT4NCiAg
+ICAgIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VSZXN1bHRNZXNzYWdlIiB0eXBlPSJ4czpzdHJp
+bmciIG1pbk9jY3Vycz0iMCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgICA8eHM6ZWxlbWVudCBu
+YW1lPSJTZXJ2aWNlUmVzdWx0Q29kZSIgdHlwZT0ieHM6aW50IiBtaW5PY2N1cnM9IjAiIC8+DQog
+ICAgICA8eHM6ZWxlbWVudCBuYW1lPSJTZXJ2aWNlRXhlY3V0aW9uU3RhdHVzIiB0eXBlPSJ0bnM6
+U2VydmljZUV4ZWN1dGlvblN0YXR1cyIgbWluT2NjdXJzPSIwIiAvPg0KICAgIDwveHM6c2VxdWVu
+Y2U+DQogIDwveHM6Y29tcGxleFR5cGU+DQogIDx4czplbGVtZW50IG5hbWU9IlNlcnZpY2VFeGVj
+dXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiIHR5cGU9InRuczpTZXJ2aWNlRXhlY3V0aW9uU3luY1Jl
+c3VsdERhdGFUeXBlIiAvPg0KDQogIDx4czpjb21wbGV4VHlwZSBuYW1lPSJMaXN0T2ZTZXJ2aWNl
+RXhlY3V0aW9uU3luY1Jlc3VsdERhdGFUeXBlIj4NCiAgICA8eHM6c2VxdWVuY2U+DQogICAgICA8
+eHM6ZWxlbWVudCBuYW1lPSJTZXJ2aWNlRXhlY3V0aW9uU3luY1Jlc3VsdERhdGFUeXBlIiB0eXBl
+PSJ0bnM6U2VydmljZUV4ZWN1dGlvblN5bmNSZXN1bHREYXRhVHlwZSIgbWluT2NjdXJzPSIwIiBt
+YXhPY2N1cnM9InVuYm91bmRlZCIgbmlsbGFibGU9InRydWUiIC8+DQogICAgPC94czpzZXF1ZW5j
+ZT4NCiAgPC94czpjb21wbGV4VHlwZT4NCiAgPHhzOmVsZW1lbnQgbmFtZT0iTGlzdE9mU2Vydmlj
+ZUV4ZWN1dGlvblN5bmNSZXN1bHREYXRhVHlwZSIgdHlwZT0idG5zOkxpc3RPZlNlcnZpY2VFeGVj
+dXRpb25TeW5jUmVzdWx0RGF0YVR5cGUiIG5pbGxhYmxlPSJ0cnVlIj48L3hzOmVsZW1lbnQ+DQoN
+CjwveHM6c2NoZW1hPg==</ByteString>
     </Value>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=15165" BrowseName="NamespaceUri" ParentNodeId="ns=1;i=15163" DataType="String">
@@ -1740,6 +2134,36 @@ DQoNCjwveHM6c2NoZW1hPg==</ByteString>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Capability_Struct_String']</String>
     </Value>
   </UAVariable>
+  <UAVariable NodeId="ns=1;i=15233" BrowseName="1:Move_Queue_Data_Type" ParentNodeId="ns=1;i=15163" DataType="String">
+    <DisplayName>Move_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15163</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Move_Queue_Data_Type']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15236" BrowseName="1:Set_Queue_Element_State_Data_Type" ParentNodeId="ns=1;i=15163" DataType="String">
+    <DisplayName>Set_Queue_Element_State_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15163</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Set_Queue_Element_State_Data_Type']</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15239" BrowseName="1:Change_Queue_Data_Type" ParentNodeId="ns=1;i=15163" DataType="String">
+    <DisplayName>Change_Queue_Data_Type</DisplayName>
+    <References>
+      <Reference ReferenceType="HasTypeDefinition">i=69</Reference>
+      <Reference ReferenceType="HasComponent" IsForward="false">ns=1;i=15163</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">//xs:element[@name='Change_Queue_Data_Type']</String>
+    </Value>
+  </UAVariable>
   <UAVariable NodeId="ns=1;i=15182" BrowseName="1:Queue_Data_Type" ParentNodeId="ns=1;i=15163" DataType="String">
     <DisplayName>Queue_Data_Type</DisplayName>
     <References>
@@ -1802,6 +2226,27 @@ DQoNCjwveHM6c2NoZW1hPg==</ByteString>
     <DisplayName>Default JSON</DisplayName>
     <References>
       <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15050</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15242" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15199</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15243" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15200</Reference>
+      <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15244" BrowseName="Default JSON" SymbolicName="DefaultJson">
+    <DisplayName>Default JSON</DisplayName>
+    <References>
+      <Reference ReferenceType="HasEncoding" IsForward="false">ns=1;i=15201</Reference>
       <Reference ReferenceType="HasTypeDefinition">i=76</Reference>
     </References>
   </UAObject>

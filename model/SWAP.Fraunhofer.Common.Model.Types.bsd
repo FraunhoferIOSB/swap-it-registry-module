@@ -72,12 +72,29 @@
     <opc:Field Name="Value" TypeName="opc:String" />
   </opc:StructuredType>
 
+  <opc:StructuredType Name="Move_Queue_Data_Type" BaseType="ua:ExtensionObject">
+    <opc:Field Name="service_uuid" TypeName="opc:String" />
+    <opc:Field Name="orderId" TypeName="opc:String" />
+    <opc:Field Name="NewPosition" TypeName="opc:Int32" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="Set_Queue_Element_State_Data_Type" BaseType="ua:ExtensionObject">
+    <opc:Field Name="service_uuid" TypeName="opc:String" />
+    <opc:Field Name="orderId" TypeName="opc:String" />
+    <opc:Field Name="NewState" TypeName="tns:Queue_State_Variable_Type" />
+  </opc:StructuredType>
+
+  <opc:StructuredType Name="Change_Queue_Data_Type" BaseType="ua:ExtensionObject">
+    <opc:Field Name="OrderId" TypeName="opc:String" />
+    <opc:Field Name="PrioritizationValue" TypeName="opc:Int32" />
+  </opc:StructuredType>
+
   <opc:StructuredType Name="Queue_Data_Type" BaseType="ua:ExtensionObject">
     <opc:Field Name="Client_Identifier" TypeName="opc:String" />
     <opc:Field Name="Service_UUID" TypeName="opc:String" />
     <opc:Field Name="Entry_Number" TypeName="opc:Int16" />
     <opc:Field Name="Queue_Element_State" TypeName="tns:Queue_State_Variable_Type" />
-    <opc:Field Name="ProductId" TypeName="opc:String" />
+    <opc:Field Name="OrderId" TypeName="opc:String" />
     <opc:Field Name="NoOfServiceParameter" TypeName="opc:Int32" />
     <opc:Field Name="ServiceParameter" TypeName="ua:DataValue" LengthField="NoOfServiceParameter" />
   </opc:StructuredType>
