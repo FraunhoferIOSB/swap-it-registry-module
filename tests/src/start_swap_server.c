@@ -134,7 +134,8 @@ void *start_swap_server(void *data){
     UA_ByteString json = loadFile(aggregate_conf->conf);
     UA_service_server_interpreter swap_server;
     memset(&swap_server, 0, sizeof(UA_service_server_interpreter));
-    retval = UA_server_swap_it(aggregate_conf->server, json, warehousemethodCallback, UA_FALSE, aggregate_conf->running, aggregate_conf->register_server == true ? true:false, &swap_server);
+    UA_Queue_Data queue_data;
+    retval = UA_server_swap_it(aggregate_conf->server, json, warehousemethodCallback, UA_FALSE, aggregate_conf->running, aggregate_conf->register_server == true ? true:false, &swap_server, &queue_data);
     if(retval != UA_STATUSCODE_GOOD) {
         UA_LOG_ERROR(UA_Log_Stdout, UA_LOGCATEGORY_SERVER, "Adding the pfdl types namespace failed. Please check previous error output.");
         UA_Server_delete(aggregate_conf->server);
@@ -145,7 +146,7 @@ void *start_swap_server(void *data){
     }
     UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,"Shutting down server %s ", swap_server.server_name);
     /*unregister the agent and clear the config information*/
-    clear_swap_server(&swap_server, UA_TRUE, aggregate_conf->server);
+    clear_swap_server(&swap_server, UA_TRUE, aggregate_conf->server, &queue_data);
     UA_Server_run_shutdown(aggregate_conf->server);
     UA_Server_delete(aggregate_conf->server);
     return UA_STATUSCODE_GOOD;

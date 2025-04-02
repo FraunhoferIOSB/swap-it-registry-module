@@ -134,7 +134,7 @@ UA_Boolean check_num_capa(UA_Client *aggregate_client, UA_Client *aggregation_cl
 void check_queue(UA_Queue_Data_Type val_1, UA_Queue_Data_Type val_2, UA_Int16 entry_number, UA_Boolean initial_value){
     ck_assert(UA_String_equal(&val_1.client_Identifier, &val_2.client_Identifier) == true);
     ck_assert(UA_String_equal(&val_1.service_UUID, &val_2.service_UUID) == true);
-    ck_assert(UA_String_equal(&val_1.productId, &val_2.productId) == true);
+    ck_assert(UA_String_equal(&val_1.orderId, &val_2.orderId) == true);
     if(initial_value)
         ck_assert(val_2.entry_Number == entry_number);
     else

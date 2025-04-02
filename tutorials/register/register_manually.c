@@ -130,14 +130,15 @@ int main() {
     memset(&swap_server, 0, sizeof(UA_service_server_interpreter));
     /* with the function UA_server_swap_it from the open62541 servre templat,
      * it is possible to configure the OPC UA server with a single function call*/
-    UA_server_swap_it(server, conf, warehousemethodCallback, UA_FALSE, &running, UA_FALSE, &swap_server);
+    UA_Queue_Data queue_data;
+    UA_server_swap_it(server, conf, warehousemethodCallback, UA_FALSE, &running, UA_FALSE, &swap_server, &queue_data);
     UA_ByteString_clear(&conf);
     /*run the server*/
     while(running) {
         UA_Server_run_iterate(server, true);
     }
     //clear memory
-    clear_swap_server(&swap_server, UA_FALSE, server);
+    clear_swap_server(&swap_server, UA_FALSE, server, &queue_data);
     UA_LOG_INFO(UA_Log_Stdout, UA_LOGCATEGORY_SERVER,"Shutting down server %s ", swap_server.server_name);
     /*Shut down the server*/
     UA_Server_run_shutdown(server);

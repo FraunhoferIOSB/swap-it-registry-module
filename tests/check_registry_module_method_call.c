@@ -169,7 +169,7 @@ START_TEST(check_simple_method_call)
     swap_queue = (UA_Queue_Data_Type*) out_val_swap.data;
     ck_assert(UA_String_equal(&reg_queue->client_Identifier, &swap_queue->client_Identifier) == true);
     ck_assert(UA_String_equal(&reg_queue->service_UUID, &swap_queue->service_UUID) == true);
-    ck_assert(UA_String_equal(&reg_queue->productId, &swap_queue->productId) == true);
+    ck_assert(UA_String_equal(&reg_queue->orderId, &swap_queue->orderId) == true);
     ck_assert(reg_queue->entry_Number == 0);
     ck_assert(reg_queue->queue_Element_State == 0);
     ck_assert(swap_queue->queue_Element_State == 0);
